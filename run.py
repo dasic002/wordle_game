@@ -67,10 +67,14 @@ def guess_input(word):
     Prompts user for guess input
     """
     print(word)
-    print("what is your guess?\n")
-    guess = input("your guess:")
+    while True:
+        print("what is your guess?\n")
+        guess = input("your guess:")
 
-    validate_input(guess.lower())
+        if validate_input(guess.lower()) == True:
+            print("data is valid!")
+            break
+    
     if (guess.lower() == word):
         print(f"That's correct! {guess.upper()} is the word of the day")
     else:
@@ -107,6 +111,9 @@ def validate_input(value):
     # Start - very similar to the love sandwiches validate data
     except ValueError as e:
         print(f"invalid data: {e}, please try again.\n")
+        return False
+
+    return True
     # End - very similar to the love sandwiches validate data
 
 
@@ -117,7 +124,6 @@ def main():
     player_name = welcome()
     wod = str(wod_pick())
     os.system('clear')
-    print(wod)
     print(f"Welcome {player_name}")
     guess_input(wod)
 
