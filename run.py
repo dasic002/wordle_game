@@ -45,10 +45,21 @@ def wod_pick():
     """
     Random selecting a 5 letter word from the word bank file
     """
-    fil = open('en-us-dict.txt')
-    words = fil.readlines()
-    fil.close()
+    f = open('en-us-dict.txt')
+    words = f.readlines()
+    f.close()
     return random.choice(words).strip()
+
+
+def dict_check(value):
+    """
+    Checks if value given is in the dictionary
+    returns True or False
+    """
+    f = open('en-us-dict.txt')
+    words = f.readlines()
+    f.close()
+    return value in words or f"{value}\n" in words
 
 
 def guess_input(word):
@@ -81,12 +92,18 @@ def validate_input(value):
             )
         # End - very similar to the love sandwiches validate data
 
-        # This section check the string is all alphabetic characters only
+        # Check the string is all alphabetic characters only
         elif value.isalpha() == False:
             raise ValueError(
                 f"This is a word game, you guess includes characters not in the alphabet"
             )
         
+        # Check the word in the string is a word in our dictionary
+        elif dict_check(value) == False:
+            raise ValueError(
+                f"Your guess, {value.upper()} is not a word in our dictionary"
+            )
+
     # Start - very similar to the love sandwiches validate data
     except ValueError as e:
         print(f"invalid data: {e}, please try again.\n")
