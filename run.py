@@ -8,35 +8,27 @@ import os
 # Library for pseudo random functions
 import random
 
-# testing variable as the word of the day
-# wod = ""
+# Specifies character display size to map prints
+DISPLAY = {"x": 80, "y": 24}
+
+wlc_msg = ['Welcome', '', 'to', '', 'Wordle']
+
 
 def welcome():
     """
     Produces the welcome screen into the game including the player name input
     """
-    print("""
+    msg_start_ln = int((DISPLAY['y'] - len(wlc_msg))/2)
 
+    for line in range(msg_start_ln):
+        print()
 
+    for ln in wlc_msg:
+        print(ln.center(DISPLAY['x']))
+    
+    for line in range(DISPLAY['y']-(msg_start_ln + len(wlc_msg) + 2)):
+        print()
 
-
-
-
-
-
-                                   Welcome
-
-                                      to
-
-                                    Wordle
-
-
-
-
-
-
-
-""")
     plr_name = input("What's your name?\n")
     return plr_name
 
