@@ -80,6 +80,12 @@ def validate_input(value):
                 f"The game only accepts 5 letter inputs, you provided {len(value)}"
             )
         # End - very similar to the love sandwiches validate data
+
+        # This section check the string is all alphabetic characters only
+        elif value.isalpha() == False:
+            raise ValueError(
+                f"This is a word game, you guess includes characters not in the alphabet"
+            )
         
     # Start - very similar to the love sandwiches validate data
     except ValueError as e:
