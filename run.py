@@ -11,22 +11,22 @@ import random
 # Specifies character display size to map prints
 DISPLAY = {"x": 80, "y": 24}
 
-wlc_msg = ['Welcome', '', 'to', '', 'Wordle']
+WLC_MSG = ['Welcome', '', 'to', '', 'Wordle']
 
 
 def welcome():
     """
     Produces the welcome screen into the game including the player name input
     """
-    msg_start_ln = int((DISPLAY['y'] - len(wlc_msg))/2)
+    msg_start_ln = int((DISPLAY['y'] - len(WLC_MSG))/2)
 
     for line in range(msg_start_ln):
         print()
 
-    for ln in wlc_msg:
+    for ln in WLC_MSG:
         print(ln.center(DISPLAY['x']))
     
-    for line in range(DISPLAY['y']-(msg_start_ln + len(wlc_msg) + 2)):
+    for line in range(DISPLAY['y']-(msg_start_ln + len(WLC_MSG) + 2)):
         print()
 
     plr_name = input("What's your name?\n")
@@ -58,19 +58,24 @@ def guess_input(word):
     """
     Prompts user for guess input
     """
+    # printing the WOD for testing purposes
     print(word)
+    # loops below until either the correct guess is made
     while True:
         print("what is your guess?\n")
         guess = input("your guess:")
 
+        # validates input
         if validate_input(guess.lower()) == True:
+            # confirms guess is valid
             print("data is valid!")
-            break
-    
-    if (guess.lower() == word):
-        print(f"That's correct! {guess.upper()} is the word of the day")
-    else:
-        print(f"Oops! That guess is wrong. BYE!")
+            # if guess is correct, print message confirming so and breaks the loop
+            if (guess.lower() == word):
+                print(f"That's correct! {guess.upper()} is the word of the day")
+                break
+            # or else print message for the player to try again
+            else:
+                print(f"Oops! That guess is wrong. Please try again.")
 
 
 def validate_input(value):
