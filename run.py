@@ -60,6 +60,10 @@ def guess_input(word):
     """
     # printing the WOD for testing purposes
     print(word)
+        
+    # list to hold player guesses
+    guesses = []
+       
     # loops below until either the correct guess is made
     while True:
         print("what is your guess?\n")
@@ -69,13 +73,23 @@ def guess_input(word):
         if validate_input(guess.lower()) == True:
             # confirms guess is valid
             print("data is valid!")
+            # add valid guess to list of guesses made
+            guesses.append(guess)
             # if guess is correct, print message confirming so and breaks the loop
             if (guess.lower() == word):
                 print(f"That's correct! {guess.upper()} is the word of the day")
                 break
             # or else print message for the player to try again
             else:
-                print(f"Oops! That guess is wrong. Please try again.")
+                # Clear previous wrong guess messages
+                os.system('clear')
+                # Whilst player has not made 6 valid guesses, the game goes on
+                if len(guesses) < 6:
+                    print(f"Oops! That guess is wrong. You have {6 - len(guesses)} guess(es) left.")
+                # After the 6th valid guess the game is over.
+                else:
+                    print(f"Oops! That guess is wrong. GAME OVER\nThe selected word was {word.upper()}.")
+                    break
 
 
 def validate_input(value):
