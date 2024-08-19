@@ -14,6 +14,17 @@ DISPLAY = {"x": 80, "y": 24}
 # Welcome message broken up into the segments to printout in lines
 WLC_MSG = ['Welcome', '', 'to', '', 'Wordle']
 
+# text formatting and colours
+# based on stackoverflow article
+# https://stackoverflow.com/questions/287871/how-do-i-print-colored-text-to-the-terminal
+# using ANSI codes found on wikipedia
+class style:
+    GREYBG = '\033[100m'
+    GREENBG = '\033[102m'
+    PURPLEBG = '\033[45m'
+    BOLD = '\033[1m'
+    PLAIN  = '\033[0m'
+
 
 def welcome():
     """
@@ -67,27 +78,47 @@ def display_guesses(data, wod):
     # produces a list of characters for each guess to help 
     # player deduce the word of the day
     for word in data:
-        print(word.upper())
+        # variable to hold list of letter guessed
         accuracy = []
+        # variable to copy wod_dict
         tally = wod_dict.copy()
+        # for each character, check which letters and places were guessed correctly
         for place in range(5):
             if word[place] == wod[place]:
                 accuracy.append("C")
                 tally[word[place]] -= 1
             else:
                 accuracy.append("X")
-                
+        # second pass, checks if letter but NOT places were guessed correctly 
         for idx in range(5):
             if accuracy[idx] == "X" and word[idx] in tally:
                 if tally[word[idx]] > 0:
-                    # print(wod.index(word[idx]))
                     accuracy[idx] = "O"
                     tally[word[idx]] -= 1
             else:
                 pass
+                
+        clue_ln = ""
+        
+        # for each character in the guess add styles for clues
+        for x in range(5):
+            # all are made bold
+            clue_ln += style.BOLD
+            # if correct letter and place, background is green
+            if accuracy[x] == "C":
+                clue_ln += style.GREENBG
+            # if correct letter but not place, background is purple
+            elif accuracy[x] == "O":
+                clue_ln += style.PURPLEBG
+            # else it is a grey background
+            else:
+                clue_ln += style.GREYBG
             
-        print(f"{accuracy}\n")
-        # print(tally)
+            clue_ln += f" {word[x].upper()} "
+            clue_ln += style.PLAIN
+            clue_ln += " "
+        
+        print(f"{clue_ln}\n")
 
 
 def guess_input(word):
