@@ -19,9 +19,9 @@ WLC_MSG = ['Welcome', '', 'to', '', 'Wordle']
 # https://stackoverflow.com/questions/287871/how-do-i-print-colored-text-to-the-terminal
 # using ANSI codes found on wikipedia
 class style:
-    GREYBG = '\033[100m'
-    GREENBG = '\033[102m'
-    PURPLEBG = '\033[45m'
+    GREYBG = '\033[48:5:236m'
+    GREENBG = '\033[48:5:22m'
+    PURPLEBG = '\033[48:5:90m'
     BOLD = '\033[1m'
     PLAIN  = '\033[0m'
 
