@@ -11,6 +11,7 @@ import random
 # Specifies character display size to map prints
 DISPLAY = {"x": 80, "y": 24}
 
+# Welcome message broken up into the segments to printout in lines
 WLC_MSG = ['Welcome', '', 'to', '', 'Wordle']
 
 
@@ -24,7 +25,7 @@ def welcome():
         print()
 
     for ln in WLC_MSG:
-        print(ln.center(DISPLAY['x']))
+        print(f"{ln.center(DISPLAY['x'])}")
     
     for line in range(DISPLAY['y']-(msg_start_ln + len(WLC_MSG) + 2)):
         print()
@@ -54,6 +55,41 @@ def dict_check(value):
     return value in words or f"{value}\n" in words
 
 
+def display_guesses(data, wod):
+    """
+    Generate the UI by displaying guesses and providing 
+    clues as to which letters have been guessed correctly
+    """
+    # generates a dictionary to lookup number of occurences of 
+    # each letter in the word of the day
+    wod_dict = {x:wod.count(x) for x in wod}
+    
+    # produces a list of characters for each guess to help 
+    # player deduce the word of the day
+    for word in data:
+        print(word.upper())
+        accuracy = []
+        tally = wod_dict.copy()
+        for place in range(5):
+            if word[place] == wod[place]:
+                accuracy.append("C")
+                tally[word[place]] -= 1
+            else:
+                accuracy.append("X")
+                
+        for idx in range(5):
+            if accuracy[idx] == "X" and word[idx] in tally:
+                if tally[word[idx]] > 0:
+                    # print(wod.index(word[idx]))
+                    accuracy[idx] = "O"
+                    tally[word[idx]] -= 1
+            else:
+                pass
+            
+        print(f"{accuracy}\n")
+        # print(tally)
+
+
 def guess_input(word):
     """
     Prompts user for guess input
@@ -68,6 +104,13 @@ def guess_input(word):
     while True:
         print("what is your guess?\n")
         guess = input("your guess:")
+            
+        # Clear previous guess messages
+        os.system('clear')
+        
+        # trigger function to display the guesses made to the CLI, 
+        # even when an invalid guess has been made
+        display_guesses(guesses, word)
 
         # validates input
         if validate_input(guess.lower()) == True:
@@ -75,14 +118,20 @@ def guess_input(word):
             print("data is valid!")
             # add valid guess to list of guesses made
             guesses.append(guess)
+                
+            # Clear previous guess messages so we have no duplicates from above
+            os.system('clear')
+            
+            # trigger function to display the guesses made to the CLI
+            display_guesses(guesses, word)
+            
             # if guess is correct, print message confirming so and breaks the loop
             if (guess.lower() == word):
                 print(f"That's correct! {guess.upper()} is the word of the day")
                 break
+            
             # or else print message for the player to try again
             else:
-                # Clear previous wrong guess messages
-                os.system('clear')
                 # Whilst player has not made 6 valid guesses, the game goes on
                 if len(guesses) < 6:
                     print(f"Oops! That guess is wrong. You have {6 - len(guesses)} guess(es) left.")
