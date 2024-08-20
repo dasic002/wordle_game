@@ -18,7 +18,7 @@ WLC_MSG = ['Welcome', '', 'to', '', 'Wordle']
 # based on stackoverflow article
 # https://stackoverflow.com/questions/287871/how-do-i-print-colored-text-to-the-terminal
 # using ANSI codes found on wikipedia
-class style:
+class Style:
     GREYBG = '\033[100m'
     GREENBG = '\033[42m'
     PURPLEBG = '\033[45m'
@@ -26,7 +26,7 @@ class style:
     PLAIN  = '\033[0m'
 
 
-class user:
+class User:
     """
     Class to define information stored for player
     """
@@ -59,17 +59,27 @@ def welcome():
     """
     Produces the welcome screen into the game including the player name input
     """
+    # Calculate the starting line for the welcome message
+    # accounts for the number of lines the message requires
+    # substracts from the display height and divides it in half
     msg_start_ln = int((DISPLAY['y'] - len(WLC_MSG))/2)
 
+    # prints the number of blank lines to reach the 
+    # line the message starts at
     for line in range(msg_start_ln):
         print()
 
-    for ln in WLC_MSG:
-        print(f"{ln.center(DISPLAY['x'])}")
+    # prints each value of the message list in a new line 
+    # with center alignment
+    for line in WLC_MSG:
+        print(f"{line.center(DISPLAY['x'])}")
     
+    # prints the number of blank lines until 2 lines short so 
+    # prompt appears for the player to introduce themselves
     for line in range(DISPLAY['y']-(msg_start_ln + len(WLC_MSG) + 2)):
         print()
 
+    # prompt for player to enter name
     plr_name = input("What's your name?\n")
     return plr_name
 
@@ -155,19 +165,19 @@ def display_guesses(data, wod):
         # for each character in the guess add styles for clues
         for x in range(5):
             # all are made bold
-            clue_ln += style.BOLD
+            clue_ln += Style.BOLD
             # if correct letter and place, background is green
             if accuracy[x] == "C":
-                clue_ln += style.GREENBG
+                clue_ln += Style.GREENBG
             # if correct letter but not place, background is purple
             elif accuracy[x] == "O":
-                clue_ln += style.PURPLEBG
+                clue_ln += Style.PURPLEBG
             # else it is a grey background
             else:
-                clue_ln += style.GREYBG
+                clue_ln += Style.GREYBG
             
             clue_ln += f" {word[x].upper()} "
-            clue_ln += style.PLAIN
+            clue_ln += Style.PLAIN
             clue_ln += " "
         
         print(f"{clue_ln}\n")
@@ -230,6 +240,7 @@ def guess_input(word, player):
             if (guess.lower() == word):
                 player.guesses[str(len(guesses))] += 1
                 player.streak += 1
+                player.highscore = max(player.streak, player.highscore)
                 print(f"That's correct! {guess.upper()} is the word of the day")
                 print(player.result())
                 break
@@ -241,7 +252,9 @@ def guess_input(word, player):
                     print(f"Oops! That guess is wrong. You have {6 - len(guesses)} guess(es) left.")
                 # After the 6th valid guess the game is over.
                 else:
-                    print(f"Oops! That guess is wrong. GAME OVER\nThe selected word was {word.upper()}.")
+                    player.streak = 0
+                    print(f"GAME OVER\nThe selected word was {word.upper()}.")
+                    print(player.result())
                     break
 
 
@@ -289,7 +302,7 @@ def main():
     """
     Main function to run the game
     """
-    player = user(welcome())
+    player = User(welcome())
     wod = str(wod_pick())
     os.system('clear')
     guess_input(wod, player)
