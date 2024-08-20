@@ -50,9 +50,9 @@ class User:
         message = ""
 
         if self.streak == 0:
-            message += "Oh no! You've lost this streak!\n"
+            message += f"Oh no, {player.name}! You've lost this streak!\n"
         else:
-            message += "Nicely done!\n"
+            message += f"Nicely done, {player.name}!\n"
 
         message += f"Your current streak: {self.streak}\n"
         message += f"Your longest streak: {self.highscore}\n"
@@ -93,8 +93,14 @@ def welcome():
     for line in range(DISPLAY['y']-(msg_start_ln + len(wlc_msg) + 2)):
         print()
 
-    # prompt for player to enter name
-    plr_name = input("What's your name?\n")
+    # prompt for player to enter name and removes whitespaces
+    # before or after input string
+    plr_name = input("What's your name?\n").strip()
+
+    # sets default player name should input be blank
+    if plr_name is "":
+        plr_name = "Player-1"
+
     return plr_name
 
 
@@ -235,11 +241,11 @@ def validate_input(value):
     """
     try:
         # User asks for help to review the rules
-        if value == "help!":
+        if value is "help!":
             help()
 
         # Start - very similar to the love sandwiches validate data
-        elif len(value) != 5:
+        elif len(value) is not 5:
             raise ValueError(
                 f"The game only accepts 5 letter inputs, you provided "
                 + f"{len(value)}"
@@ -247,14 +253,14 @@ def validate_input(value):
         # End - very similar to the love sandwiches validate data
 
         # Check the string is all alphabetic characters only
-        elif value.isalpha() is False:
+        elif not value.isalpha():
             raise ValueError(
                 f"This is a word game, you guess includes characters not "
                 + "in the alphabet"
             )
 
         # Check the word in the string is a word in our dictionary
-        elif dict_check(value) is False:
+        elif not dict_check(value):
             raise ValueError(
                 f"Your guess, {value.upper()} is not a word in our dictionary"
             )
@@ -294,7 +300,7 @@ def guess_input(word, player):
     # loops below until either the correct guess is made
     while True:
         print("what is your guess?\n")
-        guess = input("your guess:")
+        guess = input("your guess:").strip()
 
         # Clear previous guess messages
         os.system('clear')
