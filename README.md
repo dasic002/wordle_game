@@ -304,22 +304,38 @@ When testing the game on the phone sometimes the discard stack does not show a c
 
  Also, to remove the ambiguity of the card selection, code has also been added to disable the card buttons from the moment one is clicked until the script is done registering the card selection. -->
 
-## Deployment
+## Deployment as a Heroku app
 
-The site was deployed to GitHub pages following the steps outlined below:
-- Log in to GitHub and navigate to the GitHub Repository.
-- On the Repository page, select the settings icon just above the Repository title.
-- In the sidebar to the left, select "Pages" under the "Code and automation" section.
-- Under **Source**, select the "Deploy from a branch" from the dropdown menu, then under **Root** select "Main branch" from that dropdown menu.
-- Make sure the "/root" is selected for the folder and click Save.
+1) Login to Heroku.
+2) Once on the dashboard, click _"New"_ and select _"Create new app"_ from dropdown list.
+3) Select the applicable region for your app. In our case, it's _Europe_.
+4) Give the app a name. _NOTE:_ the form will advise if the name is unique and therefore available.
+5) Once a suitable name has been given, click _"Create app"_.
+6) You should be directed to the __"Deploy"__ tab of the app. Here you'll see a __"Deployment method"__ section, select __"GitHub"__.
+7) Another section should reveal __"Connect to GitHub"__, if you have connected your GitHub account, you should see your account listed and search bar to find the repository to deploy from. Click __"Search"__ and click __"Connect"__ on the correct repository listed below.
+8) Before we proceed with deployment further, we need to navigate to the __"Settings"__ tab.
+9) Expand Config Vars by clicking __"Reveal Config Vars"__, and add a key of `PORT` with a value of `8000`.
+10) If your project contains credentials to access secure data, you'll need to add another Config Var, add a key of `CREDS` and paste the JSON content as the value.
+11) Next, we need to add two buildpacks, note the order is __important__, select and add buildpack as follows:
 
-The page will be automatically refreshed and a link to the deployed site will be available on a ribbon display just at the top of the GitHub Pages webpage.
+1. `heroku/python`
+2. `heroku/nodejs`
 
-<!-- The deployed page can be found [here.](https://dasic002.github.io/GameOfKings/) -->
+12) Navigate back to the __"Deploy"__ tab, scroll down to __"Manual deploy"__, select the appropriate branch and click __"Deploy Branch"__. This step take short while for the server to compile the code and dependencies for the app.
+
+To view the deployed app, scroll to the top and click "Open app".
+
+The deployed app can be found [here.](https://wordle-dasic002-367fb61feaeb.herokuapp.com/)
+
+### Constraints
+
+The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+
 
 ### Branching
 
 <!-- This current branch, is the main branch being submitted for grading, it only differs from the pre-submission-archive branch in that it holds no debug code in the JavaScript file. -->
+
 
 ## Credits 
 
@@ -344,28 +360,6 @@ The page will be automatically refreshed and a link to the deployed site will be
 - Reference to create dictionary comprehensions - [Dictionary comprehensions](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+CPP_06_20+3/courseware/f780287e5c3f4e939cd0adb8de45c12a/82a59be9f20a4f36bff58ff4a102d60a/)
 - Formatting text - [How do I print colored text to the terminal?](https://stackoverflow.com/questions/287871/how-do-i-print-colored-text-to-the-terminal)
 - ANSI colours - [ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit)
-
-<!-- - Media Query based on aspect ratio found in this article [The Complete guide to CSS Media Queries by PolyPane](https://polypane.app/blog/the-complete-guide-to-css-media-queries/#:~:text=taller%20than%201600px.-,Aspect%20ratio,%2Daspect%2Dratio%20media%20features.).
-
-- Guidance on creating a nav menu toggle [using JavaScript](https://www.w3schools.com/howto/howto_js_mobile_navbar.asp).
-
-- Reference on methods to distinguish clickable elements in the eventListener. [getAttribute()](https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute) and [includes()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes).
-
-- References on finding and manipulating array entries using [indexOf()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf), as well as pop(), push(), shift(), unshift(), slice() and splice().
-
-- JavaScript guidance for [moving an array entry to another position](https://www.geeksforgeeks.org/how-to-move-an-array-element-from-one-array-position-to-another-in-javascript/?ref=lbp), used for manipulating player's card hand when shuffling their position at the start or when they are swapped for something picked from the table.
-
-- JavaScript code to find duplicates in an array, copied from [Checking for duplicate strings in JavaScript array](https://stackoverflow.com/questions/49215358/checking-for-duplicate-strings-in-javascript-array).
-
-- JavaScript guidance on [setTimout()](https://www.w3schools.com/js/js_timing.asp) function to create the countdown to reveal and for the bell/knocking button.
-
-- How to prevent buttons placed inside a form element from refreshing the page using [type="button"](https://stackoverflow.com/questions/7803814/how-can-i-prevent-refresh-of-page-when-button-inside-form-is-clicked) attribute in button HTML element.
-
-- Inspiration for the function of the add Bot player buttons, using the [onclick attribute](https://www.w3schools.com/howto/howto_html_clear_input.asp) to trigger a function.
-
-- Guidance to position the navigation buttons in How To Play section [using CSS](https://www.w3schools.com/howto/howto_css_center_button.asp).
-
-- Guidance to generate the CSS to style the elements as cards, using multiple backgrounds and transforming them to build the look of the cards to minimise the image file size [MDN background](https://developer.mozilla.org/en-US/docs/Web/CSS/background). -->
 
 ### Acknowledgement
 - My mentor Brian Macharia for his insight, guidance and words of encouragement.
@@ -400,22 +394,6 @@ This is the Code Institute student template for deploying your third portfolio p
 - Your dependencies must be placed in the `requirements.txt` file
 - Do not edit any of the other files or your code may not deploy properly
 
-## Creating the Heroku app
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
-
-## Constraints
-
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
 
 ---
 

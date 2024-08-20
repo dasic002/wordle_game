@@ -76,28 +76,39 @@ def display_guesses(data, wod):
     wod_dict = {x:wod.count(x) for x in wod}
     
     # produces a list of characters for each guess to help 
-    # player deduce the word of the day
-    for word in data:
+    # player deduce the word of the day, will produce 6 lines
+    # including blank ones for guesses not made yet
+    for num in range(6):
+        
         # variable to hold list of letter guessed
         accuracy = []
         # variable to copy wod_dict
         tally = wod_dict.copy()
-        # for each character, check which letters and places were guessed correctly
-        for place in range(5):
-            if word[place] == wod[place]:
-                accuracy.append("C")
-                tally[word[place]] -= 1
-            else:
-                accuracy.append("X")
-        # second pass, checks if letter but NOT places were guessed correctly 
-        for idx in range(5):
-            if accuracy[idx] == "X" and word[idx] in tally:
-                if tally[word[idx]] > 0:
-                    accuracy[idx] = "O"
-                    tally[word[idx]] -= 1
-            else:
-                pass
-                
+
+        # For the words not present while guesses list is not 6 values long 
+        # use a wildcard value
+        if data == [] or len(data)-1 < num:
+            word = "     "
+            accuracy = ['X', 'X', 'X', 'X', 'X']
+
+        else:
+            word = data[num]
+            # for each character, check which letters and places were guessed correctly
+            for place in range(5):
+                if word[place] == wod[place]:
+                    accuracy.append("C")
+                    tally[word[place]] -= 1
+                else:
+                    accuracy.append("X")
+            # second pass, checks if letter but NOT places were guessed correctly 
+            for idx in range(5):
+                if accuracy[idx] == "X" and word[idx] in tally:
+                    if tally[word[idx]] > 0:
+                        accuracy[idx] = "O"
+                        tally[word[idx]] -= 1
+                else:
+                    pass
+                    
         clue_ln = ""
         
         # for each character in the guess add styles for clues
@@ -130,7 +141,10 @@ def guess_input(word):
         
     # list to hold player guesses
     guesses = []
-       
+
+    # display blank lines
+    display_guesses(guesses, word)
+
     # loops below until either the correct guess is made
     while True:
         print("what is your guess?\n")
@@ -138,6 +152,8 @@ def guess_input(word):
             
         # Clear previous guess messages
         os.system('clear')
+
+        print('\n')
         
         # trigger function to display the guesses made to the CLI, 
         # even when an invalid guess has been made
@@ -153,6 +169,8 @@ def guess_input(word):
             # Clear previous guess messages so we have no duplicates from above
             os.system('clear')
             
+            print('\n')
+
             # trigger function to display the guesses made to the CLI
             display_guesses(guesses, word)
             
