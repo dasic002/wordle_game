@@ -45,6 +45,18 @@ def welcome():
     return plr_name
 
 
+def help():
+    """
+    A function to display instructions for the game whenever the user
+    enters 'help!' as a guess
+    """
+    # Clear previous guess messages
+    os.system('clear')
+
+    print("help is at hand!")
+    input("Ready to resume the game? press ENTER")
+
+
 def wod_pick():
     """
     Random selecting a 5 letter word from the word bank file
@@ -132,12 +144,15 @@ def display_guesses(data, wod):
         print(f"{clue_ln}\n")
 
 
-def guess_input(word):
+def guess_input(word, name):
     """
     Prompts user for guess input
     """
+    print(f"Welcome {name}. To reveal rules, type 'help!'.")
+
     # printing the WOD for testing purposes
     print(word)
+    print('\n')
         
     # list to hold player guesses
     guesses = []
@@ -153,6 +168,7 @@ def guess_input(word):
         # Clear previous guess messages
         os.system('clear')
 
+        print(f"Welcome {name}. To reveal rules, type 'help!'.")
         print('\n')
         
         # trigger function to display the guesses made to the CLI, 
@@ -163,12 +179,19 @@ def guess_input(word):
         if validate_input(guess.lower()) == True:
             # confirms guess is valid
             print("data is valid!")
+
             # add valid guess to list of guesses made
-            guesses.append(guess)
-                
+            # since 'help!' bypasses validation, here we 
+            # ignore it for appending to guesses. 
+            # This allows the rest of the code to refresh 
+            # the display and return to the game.
+            if guess.lower() != "help!":
+                guesses.append(guess)
+            
             # Clear previous guess messages so we have no duplicates from above
             os.system('clear')
             
+            print(f"Welcome {name}. To reveal rules, type 'help!'.")
             print('\n')
 
             # trigger function to display the guesses made to the CLI
@@ -198,8 +221,12 @@ def validate_input(value):
     - input is a word in our dictionary
     """
     try:
+        # User asks for help to review the rules
+        if value == "help!":
+            help()
+
         # Start - very similar to the love sandwiches validate data
-        if len(value) != 5:
+        elif len(value) != 5:
             raise ValueError(
                 f"The game only accepts 5 letter inputs, you provided {len(value)}"
             )
@@ -233,8 +260,7 @@ def main():
     player_name = welcome()
     wod = str(wod_pick())
     os.system('clear')
-    print(f"Welcome {player_name}")
-    guess_input(wod)
+    guess_input(wod, player_name)
 
 
 main()
