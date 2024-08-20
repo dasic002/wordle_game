@@ -26,6 +26,35 @@ class style:
     PLAIN  = '\033[0m'
 
 
+class user:
+    """
+    Class to define information stored for player
+    """
+    def __init__(self, name):
+        self.name = name
+        self.streak = 0
+        self.highscore = 0
+        self.guesses = {'1':0, '2':0, '3':0, '4':0, '5':0, '6':0}
+    
+    def result(self):
+        """
+        The output at the end of the game to display the player's scores
+        """
+        message = ""
+
+        if self.streak == 0:
+            message += "Oh no! You've lost this streak!\n"
+        else:
+            message += "Nicely done!\n"
+
+        message += f"Your current streak: {self.streak}\n"
+        message += f"Your longest streak: {self.highscore}\n"
+        message += f"Number of guesses taken:\n"
+        message += f"{self.guesses}"
+
+        return message
+
+
 def welcome():
     """
     Produces the welcome screen into the game including the player name input
@@ -144,11 +173,11 @@ def display_guesses(data, wod):
         print(f"{clue_ln}\n")
 
 
-def guess_input(word, name):
+def guess_input(word, player):
     """
     Prompts user for guess input
     """
-    print(f"Welcome {name}. To reveal rules, type 'help!'.")
+    print(f"Welcome {player.name}. To reveal rules, type 'help!'.")
 
     # printing the WOD for testing purposes
     print(word)
@@ -168,7 +197,7 @@ def guess_input(word, name):
         # Clear previous guess messages
         os.system('clear')
 
-        print(f"Welcome {name}. To reveal rules, type 'help!'.")
+        print(f"Welcome {player.name}. To reveal rules, type 'help!'.")
         print('\n')
         
         # trigger function to display the guesses made to the CLI, 
@@ -191,7 +220,7 @@ def guess_input(word, name):
             # Clear previous guess messages so we have no duplicates from above
             os.system('clear')
             
-            print(f"Welcome {name}. To reveal rules, type 'help!'.")
+            print(f"Welcome {player.name}. To reveal rules, type 'help!'.")
             print('\n')
 
             # trigger function to display the guesses made to the CLI
@@ -199,7 +228,10 @@ def guess_input(word, name):
             
             # if guess is correct, print message confirming so and breaks the loop
             if (guess.lower() == word):
+                player.guesses[str(len(guesses))] += 1
+                player.streak += 1
                 print(f"That's correct! {guess.upper()} is the word of the day")
+                print(player.result())
                 break
             
             # or else print message for the player to try again
@@ -257,10 +289,10 @@ def main():
     """
     Main function to run the game
     """
-    player_name = welcome()
+    player = user(welcome())
     wod = str(wod_pick())
     os.system('clear')
-    guess_input(wod, player_name)
+    guess_input(wod, player)
 
 
 main()
