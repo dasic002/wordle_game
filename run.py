@@ -98,7 +98,7 @@ def welcome():
     plr_name = input("What's your name?\n").strip()
 
     # sets default player name should input be blank
-    if plr_name is "":
+    if plr_name == "":
         plr_name = "Player-1"
 
     return plr_name
@@ -208,11 +208,11 @@ def validate_input(value):
     """
     try:
         # User asks for help to review the rules
-        if value is "help!":
+        if value == "help!":
             help()
 
         # Start - very similar to the love sandwiches validate data
-        elif len(value) is not 5:
+        elif len(value) != 5:
             raise ValueError(
                 f"The game only accepts 5 letter inputs, you provided "
                 + f"{len(value)}"
@@ -361,11 +361,17 @@ def main():
 
     get_dictionary()
 
-    wod = random.choice(words).strip()
-    print(words)
+    while True:
+        wod = random.choice(words).strip()
 
-    os.system('clear')
-    guess_input(wod, player)
+        os.system('clear')
+        guess_input(wod, player)
+
+        new_round = input('Enter "n" to quit or any key to play again: ')
+
+        if new_round.lower().strip() == 'n':
+            print(f'Thank you for playing, {player.name}. Goodbye.')
+            return False
 
 
 main()
