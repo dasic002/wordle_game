@@ -50,9 +50,9 @@ class User:
         message = ""
 
         if self.streak == 0:
-            message += f"Oh no, {player.name}! You've lost this streak!\n"
+            message += f"Oh no, {self.name}! You've lost this streak!\n"
         else:
-            message += f"Nicely done, {player.name}!\n"
+            message += f"Nicely done, {self.name}!\n"
 
         message += f"Your current streak: {self.streak}\n"
         message += f"Your longest streak: {self.highscore}\n"
@@ -114,39 +114,6 @@ def help():
 
     print("help is at hand!")
     input("Ready to resume the game? press ENTER")
-
-
-def wod_pick():
-    """
-    Random selection of a 5 letter word from the
-    word bank text file.
-
-    Returns:
-      string: the 5 letter word for the player
-        to guess.
-    """
-    f = open('en-us-dict.txt')
-    words = f.readlines()
-    f.close()
-    return random.choice(words).strip()
-
-
-def dict_check(value):
-    """
-    Checks if value given is in the dictionary,
-    returns True or False.
-
-    Args:
-      string: The player's latest guess.
-
-    Returns:
-      boolean: True or False, if the word is in
-        the word bank text file
-    """
-    f = open('en-us-dict.txt')
-    words = f.readlines()
-    f.close()
-    return value in words or f"{value}\n" in words
 
 
 def display_guesses(data, wod):
@@ -359,12 +326,44 @@ def guess_input(word, player):
                     break
 
 
+def get_dictionary():
+    """
+    Create list of words from word database.
+
+    Returns: list of strings: words to use as a dictionary.
+    """
+    f = open('en-us-dict.txt')
+    global words
+    words = [word for word in f.readlines() if word.strip()]
+    f.close()
+
+
+def dict_check(value):
+    """
+    Checks if value given is in the dictionary,
+    returns True or False.
+
+    Args:
+      value: string: The player's latest guess.
+
+    Returns:
+      boolean: True or False, if the word is in
+        the word bank text file
+    """
+    return value in words or f"{value}\n" in words
+
+
 def main():
     """
     Main function to run the game.
     """
     player = User(welcome())
-    wod = str(wod_pick())
+
+    get_dictionary()
+
+    wod = random.choice(words).strip()
+    print(words)
+
     os.system('clear')
     guess_input(wod, player)
 
