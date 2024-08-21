@@ -1,5 +1,6 @@
 import os
 import random
+from datetime import datetime
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -54,6 +55,7 @@ class User:
           name: string: The name the player gives
             themselves at the start of the game.
         """
+        self.id = timestamp()
         self.name = name
         self.streak = 0
         self.highscore = 0
@@ -81,6 +83,18 @@ class User:
         message += f"{self.guesses}"
 
         return message
+
+
+def timestamp():
+    """
+    Creates a string of numbers alone from date and time
+    
+    Returns: string: of number characters only in the format
+    of year as 2 digits, week number, hours, minutes and seconds.
+    """
+    x = datetime.now()
+    stamp = f'{x.strftime("%y")}{x.strftime("%W")}{x.strftime("%X")}{str(x.strftime("%f"))[0]}{str(x.strftime("%f"))[1]}'
+    return stamp.replace(":","")
 
 
 def welcome():
