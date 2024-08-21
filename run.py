@@ -20,9 +20,7 @@ class Style:
 
 
 class User:
-    """
-    Class to define information stored for player
-    """
+    """ Class to define information stored for player. """
     def __init__(self, name):
         """
         Initializes user object with name only
@@ -125,8 +123,9 @@ def display_guesses(data, wod):
     Args:
       data: list of str: the list of guesses the player
         has made so far.
-      wod: string: the word randomly selected for this
-        game to compare the guesses against.
+      wod: string: Word Of (the) Day the word randomly
+        selected for this game to compare the guesses
+        against.
     """
     # generates a dictionary to lookup number of occurences of
     # each letter in the word of the day
@@ -254,8 +253,6 @@ def guess_input(word, player):
     """
     print(f"Welcome {player.name}. To reveal rules, type 'help!'.")
 
-    # printing the WOD for testing purposes
-    print(word)
     print('\n')
 
     # list to hold player guesses
@@ -333,6 +330,8 @@ def get_dictionary():
     Returns: list of strings: words to use as a dictionary.
     """
     f = open('en-us-dict.txt')
+
+    # creates the list of strings a global variable
     global words
     words = [word for word in f.readlines() if word.strip()]
     f.close()
@@ -354,19 +353,19 @@ def dict_check(value):
 
 
 def main():
-    """
-    Main function to run the game.
-    """
+    """ Main function to run the game. """
     player = User(welcome())
 
     get_dictionary()
 
     while True:
+        # Word Of the Day being randomly selected
         wod = random.choice(words).strip()
 
         os.system('clear')
         guess_input(wod, player)
 
+        # After playing the game, ask for input to confirm new game
         new_round = input('Enter "n" to quit or any key to play again: ')
 
         if new_round.lower().strip() == 'n':
