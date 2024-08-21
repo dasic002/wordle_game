@@ -1,5 +1,28 @@
 import os
 import random
+import gspread
+from google.oauth2.service_account import Credentials
+
+# based on love sandwiches project to get access to a
+# google sheets document and record scores and call
+# the highest for comparison
+SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+    ]
+
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('Wordle-game')
+
+scores = SHEET.worksheet('scores')
+
+data = scores.get_all_values()
+
+print(data)
+
 
 # Specifies character display size to map prints
 DISPLAY = {"x": 80, "y": 24}
