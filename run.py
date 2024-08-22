@@ -1,5 +1,6 @@
 import os
 import random
+import math
 from datetime import datetime
 import gspread
 from google.oauth2.service_account import Credentials
@@ -18,12 +19,8 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Wordle-game')
 
-scores = SHEET.worksheet('scores')
-
-data = scores.get_all_values()
-
-print(data)
-
+# code testing we can search the scores worksheet by a value
+SCORES = SHEET.worksheet('scores')
 
 # Specifies character display size to map prints
 DISPLAY = {"x": 80, "y": 24}
@@ -60,6 +57,7 @@ class User:
         self.streak = 0
         self.highscore = 0
         self.guesses = {'1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0}
+        self.add_session()
 
     def result(self):
         """
@@ -80,9 +78,54 @@ class User:
         message += f"Your current streak: {self.streak}\n"
         message += f"Your longest streak: {self.highscore}\n"
         message += f"Number of guesses taken:\n"
-        message += f"{self.guesses}"
+        message += f"{self.guesses}\n"
+        self.update_session()
 
         return message
+
+    def add_session(self):
+        """ Adds User data to database to record session start """
+        line = [self.id, self.name, self.streak, self.highscore]
+        
+        record = []
+        record.extend(self.guesses.values())
+
+        line.extend(record)
+
+        average_guess = 0
+        line.append(average_guess)
+
+
+    def update_session(self):
+        
+        # cell = SCORES.find(self.id)
+
+        # print("Found something at R%sC%s" % (cell.row, cell.col))
+
+        line = [self.id, self.name, self.streak, self.highscore]
+        
+        record = []
+        record.extend(self.guesses.values())
+
+        line.extend(record)
+
+        average_guess = 0
+
+        # for x in range(6):
+        #     record[x] = record[x] * (x + 1)
+        
+        total_guesses = [record[x] * (x + 1) for x in range(6)]
+        if math.fsum(record) != 0:
+            average_guess = math.fsum(total_guesses)/math.fsum(record)
+            average_guess = round(average_guess, 2)
+        else:
+            pass
+        
+        line.append(average_guess)
+        # print(average_guess)
+
+        print(line)
+
 
 
 def timestamp():
