@@ -75,10 +75,9 @@ class User:
         else:
             message += f"Nicely done, {self.name}!\n"
 
-        message += f"Your current streak: {self.streak}\n"
-        message += f"Your longest streak: {self.highscore}\n"
-        message += f"Number of guesses taken:\n"
-        message += f"{self.guesses}\n"
+        message += f"Your current streak: {self.streak}. "
+        message += f"and longest streak: {self.highscore}\n"
+        message += f"On average, you have guessed the word of the day in {self.guess_average()} guesses.\n"
         self.update_session()
 
         return message
@@ -86,30 +85,44 @@ class User:
     def add_session(self):
         """ Adds User data to database to record session start """
         line = [self.id, self.name, self.streak, self.highscore]
-        
+
+        # compiles integers from guesses as list
         record = []
         record.extend(self.guesses.values())
 
+        # adds record to list of values to add to worksheet
         line.extend(record)
 
+        # sets initial value of average_guess to zero
         average_guess = 0
         line.append(average_guess)
 
+        # adds game session to worksheet
         SCORES.append_row(line)
 
 
     def update_session(self):
-        
+        """
+        Looks up the session timestamp/ID and update the 
+        row in the worksheet with the lastest data
+        """
         cell = SCORES.find(str(self.id))
-
-        print("Found something at R%sC%s" % (cell.row, cell.col))
 
         line = [self.id, self.name, self.streak, self.highscore]
         
         record = []
         record.extend(self.guesses.values())
-
         line.extend(record)
+
+        average_guess = self.guess_average()
+        line.append(average_guess)
+
+        SCORES.update([line],cell.address)
+
+
+    def guess_average(self):
+        record = []
+        record.extend(self.guesses.values())
 
         average_guess = 0
         
@@ -119,13 +132,8 @@ class User:
             average_guess = round(average_guess, 2)
         else:
             pass
-        
-        line.append(average_guess)
-        # print(average_guess)
 
-        SCORES.update([line],cell.address)
-
-        print(line)
+        return average_guess
 
 
 def timestamp():
@@ -385,7 +393,7 @@ def guess_input(word, player):
                 player.streak += 1
                 player.highscore = max(player.streak, player.highscore)
                 print(f"That's correct! {guess.upper()} is the word of"
-                      + "the day")
+                      + " the day.\n")
                 print(player.result())
                 break
 
