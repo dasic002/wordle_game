@@ -52,7 +52,7 @@ class User:
           name: string: The name the player gives
             themselves at the start of the game.
         """
-        self.id = timestamp()
+        self.id = int(timestamp())
         self.name = name
         self.streak = 0
         self.highscore = 0
@@ -95,12 +95,14 @@ class User:
         average_guess = 0
         line.append(average_guess)
 
+        SCORES.append_row(line)
+
 
     def update_session(self):
         
-        # cell = SCORES.find(self.id)
+        cell = SCORES.find(str(self.id))
 
-        # print("Found something at R%sC%s" % (cell.row, cell.col))
+        print("Found something at R%sC%s" % (cell.row, cell.col))
 
         line = [self.id, self.name, self.streak, self.highscore]
         
@@ -110,9 +112,6 @@ class User:
         line.extend(record)
 
         average_guess = 0
-
-        # for x in range(6):
-        #     record[x] = record[x] * (x + 1)
         
         total_guesses = [record[x] * (x + 1) for x in range(6)]
         if math.fsum(record) != 0:
@@ -125,7 +124,6 @@ class User:
         # print(average_guess)
 
         print(line)
-
 
 
 def timestamp():
