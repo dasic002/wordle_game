@@ -19,7 +19,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Wordle-game')
 
-# code testing we can search the scores worksheet by a value
+# Sets constant to use to call on scores worksheet
 SCORES = SHEET.worksheet('scores')
 
 # Specifies character display size to map prints
@@ -79,6 +79,7 @@ class User:
         message += f"and longest streak: {self.highscore}\n"
         message += f"On average, you have guessed the word of the day in {self.guess_average()} guesses.\n"
         self.update_session()
+        message += f"You have ranked {self.rank()}\n"
 
         return message
 
@@ -103,30 +104,54 @@ class User:
 
     def update_session(self):
         """
-        Looks up the session timestamp/ID and update the 
-        row in the worksheet with the lastest data
+        Lookup the session timestamp/ID of the 
+        current player and update the row in the
+        worksheet with the lastest data.
         """
+        # find the cell with the current player id
         cell = SCORES.find(str(self.id))
 
+        # compile a list of user data again
         line = [self.id, self.name, self.streak, self.highscore]
-        
+
+        # compile a list of integers of games won with a given number of turns taken
         record = []
         record.extend(self.guesses.values())
         line.extend(record)
 
+        # call function to calculate guess average to add to list of values
         average_guess = self.guess_average()
         line.append(average_guess)
 
+        # update row of the matching ID with compiled list
         SCORES.update([line],cell.address)
 
 
     def guess_average(self):
+        """
+        Calculate the average number of turns 
+        the current player has taken to guess
+        the word of the day correctly.
+
+        Returns: float: calculated average number
+          of guesses over the times the player has
+          managed to guess the word.
+        """
+        # compile a list of integers of games won with
+        # a given number of turns taken.
         record = []
         record.extend(self.guesses.values())
 
         average_guess = 0
-        
+
+        # list comprehension which converts the list
+        # of games won by number of guesses to a total
+        # number of guesses made resulting in a win.
         total_guesses = [record[x] * (x + 1) for x in range(6)]
+
+        # if player has guessed any of the words so far
+        # divide the total number of guesses by the number
+        # of won games and round the number to 2 decimal points.
         if math.fsum(record) != 0:
             average_guess = math.fsum(total_guesses)/math.fsum(record)
             average_guess = round(average_guess, 2)
@@ -134,6 +159,33 @@ class User:
             pass
 
         return average_guess
+
+
+    def rank(self):
+        """
+        Compares the player's highscore to those on the worksheet.
+        Lookup the longest_streak column and find the index of
+        the player's highscore.
+
+        Returns: string: compiled of index the player has been
+          found and how many games have been played.
+
+        """
+        # fetch worksheet values of highscores
+        highscore_list = SCORES.col_values(4)
+
+        # sort in descending order
+        highscore_list.sort(reverse=True)
+
+        # finds the index of the player in the list
+        place = highscore_list.index(str(self.highscore))
+
+        # counts the number of game entries, minus heading
+        total = len(highscore_list) - 1
+
+        # compiles string with data above
+        message = f" {place} of {total}!"
+        return message
 
 
 def timestamp():
