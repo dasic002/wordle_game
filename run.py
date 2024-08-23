@@ -123,6 +123,8 @@ class User:
         line.append(average_guess)
         # print(average_guess)
 
+        SCORES.update([line],cell.address)
+
         print(line)
 
 
