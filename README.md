@@ -39,11 +39,35 @@ To plan and illustrate how the game will run, I have generated this flowchart.
 
 ### Strategy
 
-Build a MVP version of the game, that does not keep any data once the game has stopped running. Thereafter add features that build on the existing code.
+Start with an MVP and build on desirable features, to create a simplistic, fun and addictive version of the wordle game that is easy to follow on a CLI display.
 
 ### Scope
 
-<!-- Give the visitor a fun game to play that provides as much of the real life fun the game of kings provides when playing with friends. -->
+__Must have features:__
+- Word bank of 5-letter words in US english.
+- Randomly select the word to guess.
+- Allow player to enter up to 6 guess and provide basic feedback on letters correctly guessed, differentiating placement from inclusion.
+- Reveal the selected word in case the player has not guessed the word.
+- Validation on player input, that the input is:
+  - 5 characters long.
+  - all letters.
+  - a word present in the dictionary.
+
+__Should have:__
+- Tracking of scores in the session to feedback to player.
+- Invite the player to play another game.
+- Clean GUI, using colours rather than symbols for feedback on guesses. Selecting colours that are as accessible for colour blind users too.
+- Rules explaning how to play the game. 
+
+__Could have:__
+- Save session scores in a database to provide feedback to user on how do they compare against other players.
+- Provide an optional breakdown of the player's scores.
+- Resume sessions, the game could be made to allow the user to enter their given ID to resume winning streak count.
+- Praise from the game matching that of wordle, which depends on how many guesses made before finding the selected word.
+
+__Won't have:__
+- Mobile phone or tablet access, the CLI does not seem to accept text entered on these devices and any solutions online don't seem straightforward or universal.
+
 
 ### Structure
 
@@ -361,7 +385,7 @@ The deployment terminal is set to 80 columns by 24 rows. That means that each li
 - Formatting text - [How do I print colored text to the terminal?](https://stackoverflow.com/questions/287871/how-do-i-print-colored-text-to-the-terminal)
 - ANSI colours - [ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit)
 - Reference for Datetime to use in creating a timestamp based ID - [Datetime](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+CPP_06_20+3/courseware/272f493b4d57445fbd634e7ceca3a98c/4ab3e01af44f4bf2828739c1d0591a45/) and [formatting](https://www.w3schools.com/python/python_datetime.asp#gsc.tab=0)
-- Reference for dictionary list - [values()](https://www.w3schools.com/python/ref_dictionary_values.asp)
+- Reference for getting values from a dictionary - [values()](https://www.w3schools.com/python/ref_dictionary_values.asp)
 - Reference for returning a sum of integers in a list - [math.fsum()](https://www.w3schools.com/python/ref_math_fsum.asp)
 - Reference for setup, finding and updating spreadsheet with [gspread](https://docs.gspread.org/en/latest/user-guide.html)
 
