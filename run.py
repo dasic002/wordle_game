@@ -33,11 +33,58 @@ class Style:
     using ANSI codes found on wikipedia
     https://en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
     """
-    GREYBG = '\033[100m'
+    REDBG = '\033[41m'
     GREENBG = '\033[42m'
+    YELLOWBG = '\033[43m'
+    BLUEBG = '\033[44m'
     PURPLEBG = '\033[45m'
+    CYANBG = '\033[46m'
+    WHITEBG = '\033[47m'
+    GREYBG = '\033[100m'
+    BGTREDBG = '\033[101m'
+    BGTGREENBG = '\033[102m'
+    BGTYELLOWBG = '\033[103m'
+    BGTBLUEBG = '\033[104m'
+    BGTPURPLEBG = '\033[105m'
+    BGTCYANBG = '\033[106m'
+    BGTWHITEBG = '\033[107m'
     BOLD = '\033[1m'
     PLAIN = '\033[0m'
+
+style_test = ""
+style_test += f"{Style.BOLD}{Style.REDBG} A {Style.PLAIN}"
+style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
+style_test += f"{Style.BOLD}{Style.GREENBG} A {Style.PLAIN}"
+style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
+style_test += f"{Style.BOLD}{Style.YELLOWBG} A {Style.PLAIN}"
+style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
+style_test += f"{Style.BOLD}{Style.BLUEBG} A {Style.PLAIN}"
+style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
+style_test += f"{Style.BOLD}{Style.PURPLEBG} A {Style.PLAIN}"
+style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
+style_test += f"{Style.BOLD}{Style.CYANBG} A {Style.PLAIN}"
+style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
+style_test += f"{Style.BOLD}{Style.WHITEBG} A {Style.PLAIN}"
+style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
+style_test += f"{Style.BOLD}{Style.GREYBG} A {Style.PLAIN}"
+style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
+style_test += f"{Style.BOLD}{Style.BGTREDBG} A {Style.PLAIN}"
+style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
+style_test += f"{Style.BOLD}{Style.BGTGREENBG} A {Style.PLAIN}"
+style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
+style_test += f"{Style.BOLD}{Style.BGTYELLOWBG} A {Style.PLAIN}"
+style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
+style_test += f"{Style.BOLD}{Style.BGTBLUEBG} A {Style.PLAIN}"
+style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
+style_test += f"{Style.BOLD}{Style.BGTPURPLEBG} A {Style.PLAIN}"
+style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
+style_test += f"{Style.BOLD}{Style.BGTCYANBG} A {Style.PLAIN}"
+style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
+style_test += f"{Style.BOLD}{Style.BGTWHITEBG} A {Style.PLAIN}"
+style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
+
+print(style_test)
+input('ready?')
 
 
 class User:
