@@ -53,41 +53,9 @@ class Style:
     BOLD = '\033[1m'
     INVERT = '\033[7m'
     PLAIN = '\033[0m'
-
-style_test = ""
-style_test += f"{Style.BOLD}{Style.GREENBG} A {Style.PLAIN}"
-style_test += f"{Style.BOLD}{Style.BLACKBG} B {Style.PLAIN}"
-style_test += f"{Style.BOLD}{Style.BGTYELLOWBG}{Style.BLAKCFG} A {Style.PLAIN}\n\n"
-style_test += f"{Style.BOLD}{Style.REDBG} A {Style.PLAIN}"
-style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
-style_test += f"{Style.BOLD}{Style.YELLOWBG} A {Style.PLAIN}"
-style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
-style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
-style_test += f"{Style.BOLD}{Style.PURPLEBG} A {Style.PLAIN}"
-style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
-style_test += f"{Style.BOLD}{Style.CYANBG} A {Style.PLAIN}"
-style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
-style_test += f"{Style.BOLD}{Style.WHITEBG} A {Style.PLAIN}"
-style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
-style_test += f"{Style.BOLD}{Style.GREYBG} A {Style.PLAIN}"
-style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
-style_test += f"{Style.BOLD}{Style.BGTREDBG} A {Style.PLAIN}"
-style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
-style_test += f"{Style.BOLD}{Style.BGTGREENBG} A {Style.PLAIN}"
-style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
-style_test += f"{Style.BOLD}{Style.BGTYELLOWBG} A {Style.PLAIN}"
-style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
-style_test += f"{Style.BOLD}{Style.BGTBLUEBG} A {Style.PLAIN}"
-style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
-style_test += f"{Style.BOLD}{Style.BGTPURPLEBG} A {Style.PLAIN}"
-style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
-style_test += f"{Style.BOLD}{Style.BGTCYANBG} A {Style.PLAIN}"
-style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
-style_test += f"{Style.BOLD}{Style.BGTWHITEBG} A {Style.PLAIN}"
-style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
-
-print(style_test)
-input('ready?')
+    X = f'{BOLD}{BLACKBG}'
+    O = f'{BOLD}{BGTYELLOWBG}{BLAKCFG}'
+    C = f'{BOLD}{GREENBG}'
 
 
 class User:
@@ -335,7 +303,7 @@ def display_guesses(data, wod):
         # use a wildcard value
         if data == [] or len(data)-1 < num:
             word = "     "
-            accuracy = ['X', 'X', 'X', 'X', 'X']
+            accuracy = ['-', '-', '-', '-', '-']
 
         else:
             word = data[num]
@@ -361,14 +329,15 @@ def display_guesses(data, wod):
 
         # for each character in the guess add styles for clues
         for x in range(5):
-            # all are made bold
-            clue_ln += Style.BOLD
-            # if correct letter and place, background is green
+            # if correct letter and place, Letter is made bold and background is green
             if accuracy[x] == "C":
-                clue_ln += Style.GREENBG
-            # if correct letter but not place, background is purple
+                clue_ln += Style.C
+            # if correct letter but not place, Letter is made bold and black and background is bright yellow
             elif accuracy[x] == "O":
-                clue_ln += Style.PURPLEBG
+                clue_ln += Style.O
+            # if letter does not exist in the word, Letter is made bold and background black 
+            elif accuracy[x] == "X":
+                clue_ln += Style.X
             # else it is a grey background
             else:
                 clue_ln += Style.GREYBG
