@@ -268,7 +268,23 @@ def help():
     # Clear previous guess messages
     os.system('clear')
 
-    print("help is at hand!")
+    rules = f'{Style.BOLD}Rules of the game{Style.PLAIN}\n'
+    rules += f'Guess the word of the day in 6 attempts.\n\n'
+    rules += f'- A guess must be a 5-letter word in the US English dictionary.\n'
+    rules += f'- With each guess, the letters will be coloured to provide clues for the word\n'
+    rules += f' of the day.\n\n'
+    rules += f'{Style.BOLD}For example:\n\n'
+    rules += f'{Style.C} P {Style.PLAIN} {Style.GREYBG} L {Style.PLAIN} {Style.GREYBG} A {Style.PLAIN} {Style.GREYBG} T {Style.PLAIN} {Style.GREYBG} E {Style.PLAIN}\n'
+    rules += f'The letter {Style.BOLD}P{Style.PLAIN} above is highlighted in green to indicate the letter is in the word\n'
+    rules += f'and in the correct place.\n\n'
+    rules += f'{Style.GREYBG} C {Style.PLAIN} {Style.GREYBG} R {Style.PLAIN} {Style.O} O {Style.PLAIN} {Style.GREYBG} W {Style.PLAIN} {Style.GREYBG} N {Style.PLAIN}\n'
+    rules += f'The letter {Style.BOLD}O{Style.PLAIN} above is highlighted in yellow to indicate the letter is in the word\n'
+    rules += f'but in the wrong place.\n\n'
+    rules += f'{Style.GREYBG} F {Style.PLAIN} {Style.GREYBG} R {Style.PLAIN} {Style.GREYBG} A {Style.PLAIN} {Style.X} M {Style.PLAIN} {Style.GREYBG} E {Style.PLAIN}\n'
+    rules += f'The letter {Style.BOLD}M{Style.PLAIN} above is coloured in black to indicate the letter is not in the word\n'
+    rules += f'in any place.\n\n'
+
+    print(rules)
     input("Ready to resume the game? press ENTER")
 
 
