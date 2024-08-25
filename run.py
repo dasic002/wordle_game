@@ -33,6 +33,8 @@ class Style:
     using ANSI codes found on wikipedia
     https://en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
     """
+    BLAKCFG = '\033[30m'
+    BLACKBG = '\033[40m'
     REDBG = '\033[41m'
     GREENBG = '\033[42m'
     YELLOWBG = '\033[43m'
@@ -49,16 +51,17 @@ class Style:
     BGTCYANBG = '\033[106m'
     BGTWHITEBG = '\033[107m'
     BOLD = '\033[1m'
+    INVERT = '\033[7m'
     PLAIN = '\033[0m'
 
 style_test = ""
-style_test += f"{Style.BOLD}{Style.REDBG} A {Style.PLAIN}"
-style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
 style_test += f"{Style.BOLD}{Style.GREENBG} A {Style.PLAIN}"
+style_test += f"{Style.BOLD}{Style.BLACKBG} B {Style.PLAIN}"
+style_test += f"{Style.BOLD}{Style.BGTYELLOWBG}{Style.BLAKCFG} A {Style.PLAIN}\n\n"
+style_test += f"{Style.BOLD}{Style.REDBG} A {Style.PLAIN}"
 style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
 style_test += f"{Style.BOLD}{Style.YELLOWBG} A {Style.PLAIN}"
 style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
-style_test += f"{Style.BOLD}{Style.BLUEBG} A {Style.PLAIN}"
 style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
 style_test += f"{Style.BOLD}{Style.PURPLEBG} A {Style.PLAIN}"
 style_test += f"{Style.BOLD}{Style.GREYBG} B {Style.PLAIN}\n"
