@@ -61,7 +61,7 @@ class Style:
     # compiled Style to apply for correctly guessed letters
     C = f'{BOLD}{GREENBG}'
     # compiled Style to apply for blank spaces still
-    BLANK = f'{BOLD}{WHITEBG}'
+    BLANK = f'{BOLD}'
 
 
 class User:
@@ -368,7 +368,7 @@ def display_guesses(data, wod):
         # For the words not present while guesses list is not 6 values long
         # use a wildcard value
         if data == [] or len(data)-1 < num:
-            word = "     "
+            word = '*****'
             accuracy = ['-', '-', '-', '-', '-']
 
         else:
