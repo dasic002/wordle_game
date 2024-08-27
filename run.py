@@ -95,7 +95,8 @@ class User:
 
         message += f"Your current streak: {self.streak}. "
         message += f"and longest streak: {self.highscore}\n"
-        message += f"On average, you have guessed the word of the day in {self.guess_average()} guesses.\n"
+        message += f"On average, you have guessed the word of the day in "
+        + f"{self.guess_average()} guesses.\n"
         self.update_session()
         message += f"You have ranked {self.rank()}\n"
 
@@ -119,10 +120,9 @@ class User:
         # adds game session to worksheet
         SCORES.append_row(line)
 
-
     def update_session(self):
         """
-        Lookup the session timestamp/ID of the 
+        Lookup the session timestamp/ID of the
         current player and update the row in the
         worksheet with the lastest data.
         """
@@ -132,7 +132,8 @@ class User:
         # compile a list of user data again
         line = [self.id, self.name, self.streak, self.highscore]
 
-        # compile a list of integers of games won with a given number of turns taken
+        # compile a list of integers of games won with a given number of
+        # turns taken
         record = []
         record.extend(self.guesses.values())
         line.extend(record)
@@ -142,12 +143,11 @@ class User:
         line.append(average_guess)
 
         # update row of the matching ID with compiled list
-        SCORES.update([line],cell.address)
-
+        SCORES.update([line], cell.address)
 
     def guess_average(self):
         """
-        Calculate the average number of turns 
+        Calculate the average number of turns
         the current player has taken to guess
         the word of the day correctly.
 
@@ -177,7 +177,6 @@ class User:
             pass
 
         return average_guess
-
 
     def rank(self):
         """
@@ -209,13 +208,14 @@ class User:
 def timestamp():
     """
     Creates a string of numbers alone from date and time
-    
+
     Returns: string: of number characters only in the format
     of year as 2 digits, week number, hours, minutes and seconds.
     """
     x = datetime.now()
-    stamp = f'{x.strftime("%y")}{x.strftime("%W")}{x.strftime("%X")}{str(x.strftime("%f"))[0]}{str(x.strftime("%f"))[1]}'
-    return stamp.replace(":","")
+    stamp = f'{x.strftime("%y")}{x.strftime("%W")}{x.strftime("%X")}'
+    + f'{str(x.strftime("%f"))[0]}{str(x.strftime("%f"))[1]}'
+    return stamp.replace(":", "")
 
 
 def welcome():
@@ -270,18 +270,37 @@ def help():
 
     rules = f'{Style.BOLD}Rules of the game{Style.PLAIN}\n'
     rules += f'Guess the word of the day in 6 attempts.\n\n'
-    rules += f'- A guess must be a 5-letter word in the US English dictionary.\n'
-    rules += f'- With each guess, the letters will be coloured to provide clues for the word\n'
+    rules += f'- A guess must be a 5-letter word in the US English '
+    + f'dictionary.\n'
+
+    rules += f'- With each guess, the letters will be coloured to provide'
+    + f' clues for the word\n'
+
     rules += f' of the day.\n\n'
     rules += f'{Style.BOLD}For example:\n\n'
-    rules += f'{Style.C} P {Style.PLAIN} {Style.GREYBG} L {Style.PLAIN} {Style.GREYBG} A {Style.PLAIN} {Style.GREYBG} T {Style.PLAIN} {Style.GREYBG} E {Style.PLAIN}\n'
-    rules += f'The letter {Style.BOLD}P{Style.PLAIN} above is highlighted in green to indicate the letter is in the word\n'
+    rules += f'{Style.C} P {Style.PLAIN} {Style.GREYBG} L {Style.PLAIN} '
+    + f'{Style.GREYBG} A {Style.PLAIN} {Style.GREYBG} T {Style.PLAIN} '
+    + f'{Style.GREYBG} E {Style.PLAIN}\n'
+
+    rules += f'The letter {Style.BOLD}P{Style.PLAIN} above is highlighted in '
+    + f'green to indicate the letter is in the word\n'
+
     rules += f'and in the correct place.\n\n'
-    rules += f'{Style.GREYBG} C {Style.PLAIN} {Style.GREYBG} R {Style.PLAIN} {Style.O} O {Style.PLAIN} {Style.GREYBG} W {Style.PLAIN} {Style.GREYBG} N {Style.PLAIN}\n'
-    rules += f'The letter {Style.BOLD}O{Style.PLAIN} above is highlighted in yellow to indicate the letter is in the word\n'
+    rules += f'{Style.GREYBG} C {Style.PLAIN} {Style.GREYBG} R {Style.PLAIN} '
+    + f'{Style.O} O {Style.PLAIN} {Style.GREYBG} W {Style.PLAIN} '
+    + f'{Style.GREYBG} N {Style.PLAIN}\n'
+
+    rules += f'The letter {Style.BOLD}O{Style.PLAIN} above is highlighted in '
+    + f'yellow to indicate the letter is in the word\n'
+
     rules += f'but in the wrong place.\n\n'
-    rules += f'{Style.GREYBG} F {Style.PLAIN} {Style.GREYBG} R {Style.PLAIN} {Style.GREYBG} A {Style.PLAIN} {Style.X} M {Style.PLAIN} {Style.GREYBG} E {Style.PLAIN}\n'
-    rules += f'The letter {Style.BOLD}M{Style.PLAIN} above is coloured in black to indicate the letter is not in the word\n'
+    rules += f'{Style.GREYBG} F {Style.PLAIN} {Style.GREYBG} R {Style.PLAIN} '
+    + f'{Style.GREYBG} A {Style.PLAIN} {Style.X} M {Style.PLAIN} '
+    + f'{Style.GREYBG} E {Style.PLAIN}\n'
+
+    rules += f'The letter {Style.BOLD}M{Style.PLAIN} above is coloured in'
+    + f' black to indicate the letter is not in the word\n'
+
     rules += f'in any place.\n\n'
 
     print(rules)
@@ -345,13 +364,16 @@ def display_guesses(data, wod):
 
         # for each character in the guess add styles for clues
         for x in range(5):
-            # if correct letter and place, Letter is made bold and background is green
+            # if correct letter and place, Letter is made bold and background
+            # is green
             if accuracy[x] == "C":
                 clue_ln += Style.C
-            # if correct letter but not place, Letter is made bold and black and background is bright yellow
+            # if correct letter but not place, Letter is made bold and black
+            # and background is bright yellow
             elif accuracy[x] == "O":
                 clue_ln += Style.O
-            # if letter does not exist in the word, Letter is made bold and background black 
+            # if letter does not exist in the word, Letter is made bold and
+            # background black
             elif accuracy[x] == "X":
                 clue_ln += Style.X
             # else it is a grey background
