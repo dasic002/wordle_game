@@ -388,7 +388,7 @@ def validate_input(value):
         # Start - very similar to the love sandwiches validate data
         elif len(value) != 5:
             raise ValueError(
-                f"The game only accepts 5 letter inputs, you provided "
+                f"The game only accepts 5 letter inputs, you\nprovided "
                 + f"{len(value)}"
             )
         # End - very similar to the love sandwiches validate data
@@ -396,14 +396,14 @@ def validate_input(value):
         # Check the string is all alphabetic characters only
         elif not value.isalpha():
             raise ValueError(
-                f"This is a word game, you guess includes characters not "
+                f"This is a word game, your guess includes\ncharacters not "
                 + "in the alphabet"
             )
 
         # Check the word in the string is a word in our dictionary
         elif not dict_check(value):
             raise ValueError(
-                f"Your guess, {value.upper()} is not a word in our dictionary"
+                f"Your guess, {value.upper()} is not a word in our\ndictionary"
             )
 
     # Start - very similar to the love sandwiches validate data
