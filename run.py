@@ -60,6 +60,8 @@ class Style:
     O = f'{BOLD}{BGTYELLOWBG}{BLAKCFG}'
     # compiled Style to apply for correctly guessed letters
     C = f'{BOLD}{GREENBG}'
+    # compiled Style to apply for blank spaces still
+    BLANK = f'{BOLD}{WHITEBG}'
 
 
 class User:
@@ -297,9 +299,9 @@ def help():
     rules += f' of the day.\n\n'
     rules += f'{Style.BOLD}For example:\n\n'
     rules += (
-        f'{Style.C} P {Style.PLAIN} {Style.GREYBG} L {Style.PLAIN} '
-        f'{Style.GREYBG} A {Style.PLAIN} {Style.GREYBG} T {Style.PLAIN} '
-        f'{Style.GREYBG} E {Style.PLAIN}\n'
+        f'{Style.C} P {Style.PLAIN} {Style.BLANK} L {Style.PLAIN} '
+        f'{Style.BLANK} A {Style.PLAIN} {Style.BLANK} T {Style.PLAIN} '
+        f'{Style.BLANK} E {Style.PLAIN}\n'
     )
 
     rules += (
@@ -309,9 +311,9 @@ def help():
     )
 
     rules += (
-        f'{Style.GREYBG} C {Style.PLAIN} {Style.GREYBG} R {Style.PLAIN} '
-        f'{Style.O} O {Style.PLAIN} {Style.GREYBG} W {Style.PLAIN} '
-        f'{Style.GREYBG} N {Style.PLAIN}\n'
+        f'{Style.BLANK} C {Style.PLAIN} {Style.BLANK} R {Style.PLAIN} '
+        f'{Style.O} O {Style.PLAIN} {Style.BLANK} W {Style.PLAIN} '
+        f'{Style.BLANK} N {Style.PLAIN}\n'
     )
 
     rules += (
@@ -321,9 +323,9 @@ def help():
     )
 
     rules += (
-        f'{Style.GREYBG} F {Style.PLAIN} {Style.GREYBG} R {Style.PLAIN} '
-        f'{Style.GREYBG} A {Style.PLAIN} {Style.X} M {Style.PLAIN} '
-        f'{Style.GREYBG} E {Style.PLAIN}\n'
+        f'{Style.BLANK} F {Style.PLAIN} {Style.BLANK} R {Style.PLAIN} '
+        f'{Style.BLANK} A {Style.PLAIN} {Style.X} M {Style.PLAIN} '
+        f'{Style.BLANK} E {Style.PLAIN}\n'
     )
 
     rules += (
@@ -407,7 +409,7 @@ def display_guesses(data, wod):
                 clue_ln += Style.X
             # else it is a grey background
             else:
-                clue_ln += Style.GREYBG
+                clue_ln += Style.BLANK
 
             clue_ln += f" {word[x].upper()} "
             clue_ln += Style.PLAIN
