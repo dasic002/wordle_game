@@ -605,4 +605,7 @@ def main():
             return False
 
 
-main()
+# calls main() function, but only if run.py is run as a script directly and
+# not as an imported module into another
+if __name__ == '__main__':
+    main()
