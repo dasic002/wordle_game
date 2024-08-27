@@ -304,10 +304,10 @@ def help():
 
     rules += (
         f'The letter {Style.BOLD}P{Style.PLAIN} above is highlighted in '
-        f'green to indicate the letter is in the word\n'
+        f'green to indicate the letter is in the\n'
+        f'word and in the correct place.\n\n'
     )
 
-    rules += f'and in the correct place.\n\n'
     rules += (
         f'{Style.GREYBG} C {Style.PLAIN} {Style.GREYBG} R {Style.PLAIN} '
         f'{Style.O} O {Style.PLAIN} {Style.GREYBG} W {Style.PLAIN} '
@@ -316,10 +316,10 @@ def help():
 
     rules += (
         f'The letter {Style.BOLD}O{Style.PLAIN} above is highlighted in '
-        f'yellow to indicate the letter is in the word\n'
+        f'yellow to indicate the letter is in the\n'
+        f'word but in the wrong place.\n\n'
     )
 
-    rules += f'but in the wrong place.\n\n'
     rules += (
         f'{Style.GREYBG} F {Style.PLAIN} {Style.GREYBG} R {Style.PLAIN} '
         f'{Style.GREYBG} A {Style.PLAIN} {Style.X} M {Style.PLAIN} '
@@ -328,10 +328,9 @@ def help():
 
     rules += (
         f'The letter {Style.BOLD}M{Style.PLAIN} above is coloured in'
-        f' black to indicate the letter is not in the word\n'
+        f' black to indicate the letter is not in the\n'
+        f'word in any place.\n\n'
     )
-
-    rules += f'in any place.\n\n'
 
     print(rules)
     input("Ready to resume the game? press ENTER")
