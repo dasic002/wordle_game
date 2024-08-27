@@ -132,7 +132,7 @@ class User:
         worksheet with the lastest data.
         """
         # find the cell with the current player id
-        cell = SCORES.find(self.id)
+        cell = SCORES.find(str(self.id))
 
         # compile a list of user data again
         line = [self.id, self.name, self.streak, self.highscore]
@@ -221,12 +221,14 @@ def timestamp():
     Returns: string: of number characters only in the format
     of year as 2 digits, week number, hours, minutes and seconds.
     """
+    # get date and time of now
     x = datetime.now()
-    stamp = (
-        f'{x.strftime("%y")}{x.strftime("%W")}{x.strftime("%X")}'
-        f'{str(x.strftime("%f"))[0]}{str(x.strftime("%f"))[1]}'
-        )
-    return stamp.replace(":", "")
+
+    # format the date and time data
+    stamp = f'{x.strftime("%y%W%X%f")}'
+
+    # return the timestamp string made up of the first 12 characters only
+    return stamp.replace(":", "")[:12]
 
 
 def welcome():
