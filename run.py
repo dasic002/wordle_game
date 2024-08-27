@@ -53,8 +53,11 @@ class Style:
     BOLD = '\033[1m'
     INVERT = '\033[7m'
     PLAIN = '\033[0m'
+    # compiled Style to apply for incorrectly guessed letters
     X = f'{BOLD}{BLACKBG}'
+    # compiled Style to apply for existing letters but guessed in the wrong place
     O = f'{BOLD}{BGTYELLOWBG}{BLAKCFG}'
+    # compiled Style to apply for correctly guessed letters
     C = f'{BOLD}{GREENBG}'
 
 
@@ -95,8 +98,10 @@ class User:
 
         message += f"Your current streak: {self.streak}. "
         message += f"and longest streak: {self.highscore}\n"
-        message += f"On average, you have guessed the word of the day in "
-        + f"{self.guess_average()} guesses.\n"
+        message += (
+            f"On average, you have guessed the word of the day in "
+            f"{self.guess_average()} guesses.\n"
+        )
         self.update_session()
         message += f"You have ranked {self.rank()}\n"
 
@@ -127,7 +132,7 @@ class User:
         worksheet with the lastest data.
         """
         # find the cell with the current player id
-        cell = SCORES.find(str(self.id))
+        cell = SCORES.find(self.id)
 
         # compile a list of user data again
         line = [self.id, self.name, self.streak, self.highscore]
@@ -142,8 +147,12 @@ class User:
         average_guess = self.guess_average()
         line.append(average_guess)
 
-        # update row of the matching ID with compiled list
-        SCORES.update([line], cell.address)
+        # if SCORES.find() returns a cell, update, otherwise add new line
+        if cell:
+            # update row of the matching ID with compiled list
+            SCORES.update([line], cell.address)
+        else:
+            SCORES.append_row(line)
 
     def guess_average(self):
         """
@@ -213,8 +222,10 @@ def timestamp():
     of year as 2 digits, week number, hours, minutes and seconds.
     """
     x = datetime.now()
-    stamp = f'{x.strftime("%y")}{x.strftime("%W")}{x.strftime("%X")}'
-    + f'{str(x.strftime("%f"))[0]}{str(x.strftime("%f"))[1]}'
+    stamp = (
+        f'{x.strftime("%y")}{x.strftime("%W")}{x.strftime("%X")}'
+        f'{str(x.strftime("%f"))[0]}{str(x.strftime("%f"))[1]}'
+        )
     return stamp.replace(":", "")
 
 
@@ -270,36 +281,52 @@ def help():
 
     rules = f'{Style.BOLD}Rules of the game{Style.PLAIN}\n'
     rules += f'Guess the word of the day in 6 attempts.\n\n'
-    rules += f'- A guess must be a 5-letter word in the US English '
-    + f'dictionary.\n'
+    rules += (
+        f'- A guess must be a 5-letter word in the US English '
+        f'dictionary.\n'
+    )
 
-    rules += f'- With each guess, the letters will be coloured to provide'
-    + f' clues for the word\n'
+    rules += (
+        f'- With each guess, the letters will be coloured to provide'
+        f' clues for the word\n'
+    )
 
     rules += f' of the day.\n\n'
     rules += f'{Style.BOLD}For example:\n\n'
-    rules += f'{Style.C} P {Style.PLAIN} {Style.GREYBG} L {Style.PLAIN} '
-    + f'{Style.GREYBG} A {Style.PLAIN} {Style.GREYBG} T {Style.PLAIN} '
-    + f'{Style.GREYBG} E {Style.PLAIN}\n'
+    rules += (
+        f'{Style.C} P {Style.PLAIN} {Style.GREYBG} L {Style.PLAIN} '
+        f'{Style.GREYBG} A {Style.PLAIN} {Style.GREYBG} T {Style.PLAIN} '
+        f'{Style.GREYBG} E {Style.PLAIN}\n'
+    )
 
-    rules += f'The letter {Style.BOLD}P{Style.PLAIN} above is highlighted in '
-    + f'green to indicate the letter is in the word\n'
+    rules += (
+        f'The letter {Style.BOLD}P{Style.PLAIN} above is highlighted in '
+        f'green to indicate the letter is in the word\n'
+    )
 
     rules += f'and in the correct place.\n\n'
-    rules += f'{Style.GREYBG} C {Style.PLAIN} {Style.GREYBG} R {Style.PLAIN} '
-    + f'{Style.O} O {Style.PLAIN} {Style.GREYBG} W {Style.PLAIN} '
-    + f'{Style.GREYBG} N {Style.PLAIN}\n'
+    rules += (
+        f'{Style.GREYBG} C {Style.PLAIN} {Style.GREYBG} R {Style.PLAIN} '
+        f'{Style.O} O {Style.PLAIN} {Style.GREYBG} W {Style.PLAIN} '
+        f'{Style.GREYBG} N {Style.PLAIN}\n'
+    )
 
-    rules += f'The letter {Style.BOLD}O{Style.PLAIN} above is highlighted in '
-    + f'yellow to indicate the letter is in the word\n'
+    rules += (
+        f'The letter {Style.BOLD}O{Style.PLAIN} above is highlighted in '
+        f'yellow to indicate the letter is in the word\n'
+    )
 
     rules += f'but in the wrong place.\n\n'
-    rules += f'{Style.GREYBG} F {Style.PLAIN} {Style.GREYBG} R {Style.PLAIN} '
-    + f'{Style.GREYBG} A {Style.PLAIN} {Style.X} M {Style.PLAIN} '
-    + f'{Style.GREYBG} E {Style.PLAIN}\n'
+    rules += (
+        f'{Style.GREYBG} F {Style.PLAIN} {Style.GREYBG} R {Style.PLAIN} '
+        f'{Style.GREYBG} A {Style.PLAIN} {Style.X} M {Style.PLAIN} '
+        f'{Style.GREYBG} E {Style.PLAIN}\n'
+    )
 
-    rules += f'The letter {Style.BOLD}M{Style.PLAIN} above is coloured in'
-    + f' black to indicate the letter is not in the word\n'
+    rules += (
+        f'The letter {Style.BOLD}M{Style.PLAIN} above is coloured in'
+        f' black to indicate the letter is not in the word\n'
+    )
 
     rules += f'in any place.\n\n'
 
@@ -411,7 +438,7 @@ def validate_input(value):
         elif len(value) != 5:
             raise ValueError(
                 f"The game only accepts 5 letter inputs, you\nprovided "
-                + f"{len(value)}"
+                f"{len(value)}"
             )
         # End - very similar to the love sandwiches validate data
 
@@ -419,7 +446,7 @@ def validate_input(value):
         elif not value.isalpha():
             raise ValueError(
                 f"This is a word game, your guess includes\ncharacters not "
-                + "in the alphabet"
+                f"in the alphabet"
             )
 
         # Check the word in the string is a word in our dictionary
@@ -510,8 +537,10 @@ def guess_input(word, player):
             else:
                 # Whilst player has not made 6 valid guesses, the game goes on
                 if len(guesses) < 6:
-                    print(f"Oops! That guess is wrong. You have "
-                          + f"{6 - len(guesses)} guess(es) left.")
+                    print(
+                        f"Oops! That guess is wrong. You have "
+                        f"{6 - len(guesses)} guess(es) left."
+                        )
                 # After the 6th valid guess the game is over.
                 else:
                     player.streak = 0
