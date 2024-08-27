@@ -55,7 +55,8 @@ class Style:
     PLAIN = '\033[0m'
     # compiled Style to apply for incorrectly guessed letters
     X = f'{BOLD}{BLACKBG}'
-    # compiled Style to apply for existing letters but guessed in the wrong place
+    # compiled Style to apply for existing letters but guessed
+    # in the wrong place
     O = f'{BOLD}{BGTYELLOWBG}{BLAKCFG}'
     # compiled Style to apply for correctly guessed letters
     C = f'{BOLD}{GREENBG}'
@@ -530,8 +531,10 @@ def guess_input(word, player):
                 player.guesses[str(len(guesses))] += 1
                 player.streak += 1
                 player.highscore = max(player.streak, player.highscore)
-                print(f"That's correct! {guess.upper()} is the word of"
-                      + " the day.\n")
+                print(
+                    f"That's correct! {guess.upper()} is the word of"
+                    " the day.\n"
+                    )
                 print(player.result())
                 break
 
@@ -561,7 +564,8 @@ def get_dictionary():
 
     # creates the list of strings a global variable
     global words
-    words = [word for word in f.readlines() if word.strip()]
+    words = [word.strip() for word in f.readlines() if word.strip()]
+
     f.close()
 
 
@@ -577,7 +581,7 @@ def dict_check(value):
       boolean: True or False, if the word is in
         the word bank text file
     """
-    return value in words or f"{value}\n" in words
+    return value in words
 
 
 def main():
