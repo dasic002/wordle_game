@@ -10,10 +10,10 @@ With each guess, the web-based game indicates whether any of the letters used ar
 Should the player deduce the word of the day, the game tracks the winning streak as the player wins consecutive days.
 If the player misses a day or fails to guess the word, the winning streak is broken and the score resets to 0.
 
+[View the deployed webapp here](https://wordle-dasic002-367fb61feaeb.herokuapp.com/)
 
-<!-- [View the deployed website here](https://dasic002.github.io/GameOfKings/) -->
+![Responsive design mock-up](documentation/responsive-design.PNG)
 
-<!-- ![Responsive design mock-up](documentation/ResponsiveDesign.PNG) -->
 
 ## UX - User Experience
 
@@ -68,42 +68,6 @@ __Could have:__
 __Won't have:__
 - Mobile phone or tablet access, the CLI does not seem to accept text entered on these devices and any solutions online don't seem straightforward or universal.
 
-
-### Structure
-
-<!-- A single page that reveals different sections with game play or menu items. The page is composed of the following sections:
-- **Header** - Contains title of the page, visible always.
-
-- **Menu** - the hamburger/bars icon visible always.
-
-- **How to play** - hidden until selected in menu or ? icon button clicked. This section is composed of several subsections for step-by-step instructions on how to play the game. Navigation buttons become available to go through the steps.
-
--  **Credits** - hidden until selected in menu. It will hold credits pertaining to the site composition and inspiration and a link to the GitHub repository. -->
-
-<!-- - **Game-area** - visible on loading of page, whenever How to play or Credits section is hidden. Composed of other subsections to navigate through the game:
-  - Welcome - visible on page load.
-  - Player form - visible on clicking the start button or New Game in the Menu. Players can enter their name, in the absence of names, the website presumes those fields as bot players.
-  - Other players - displays the other players' information.
-  - Decks area - presents the draw and discard stacks to pick from.
-  - Main player - presents the current player's information.
-  The Game-area is manipulated by JavaScript to present the live game information and prompt actions from the human player. -->
-
-### Skeleton
-
-<!-- [Landing Page](documentation/PP2-GameofKings-LandingPg.jpg)
-
-[Nav Menu](documentation/PP2-GameofKings-navMenu.jpg)
-
-[Player entry form](documentation/PP2-GameofKings-playerEntryForm.jpg)
-
-[Player Prompt](documentation/PP2-GameofKings-playerPrompt.jpg)
-
-[Card hand setup for first reveal](documentation/PP2-GameofKings-cardHandSetup.jpg)
-
-[Table Setup](documentation/PP2-GameofKings-tableSetup.jpg)
-
-[Game play](documentation/PP2-GameofKings-gamePlay.jpg) -->
-
 ### Surface
 #### Colour theme
 <!-- For the Classic card game look, palette made up of 2 greens and a deep purple and off white and black. The dusty (lighter green) used to mimic the sort of matte finish of felted card tables, whilst the dark green offers better contrast for information pertaining to the players. The deep purple was selected on buttons so it complimented the greens chosen and offered plenty of contrast to its labels in the off white colour. This palette was used to create a fun and reminiscent feel of card games whilst still offering a comfortable viewing experience.
@@ -111,34 +75,13 @@ __Won't have:__
 ![Colour theme produced using Adobe Color tool](documentation/AdobeColor-Kings_theme.PNG) -->
 
 <!-- #### Typography -->
-
-## Technologies
-<!-- - Languages used:
-  - [HTML5](https://en.wikipedia.org/wiki/HTML5)
-  - [CSS3](https://en.wikipedia.org/wiki/CSS)
-  - [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
-- [GitPod](https://www.gitpod.io/) - Cloud-based IDE to edit code and Git version control.
-- [GitHub](https://github.com/) - to store and publish the project.
-- [Google Fonts](https://fonts.google.com/) - to import fonts "Bree Serif" and "Patua One" into the website's CSS.
-- [Font Awesome](https://fontawesome.com/) - to import icons for more recognizable action buttons. It has been used in:
-  - The expandable Nav bar on narrow displays.
-  - The X icon in expandable projects section.
-  - The clear and submit form.
-  - The contact platforms in the footer.
-- [FavIcon generator](https://favicon.io/) - used to create the favicons to embed on our site.
-- [Am I Responsive](https://ui.dev/amiresponsive) - to visualise the website in various display sizes.
-- [Adobe Color](https://color.adobe.com/create/color-wheel) - to generate the colour palette and Accessibility tools checking for contrast for legibility and colour-blind viewing.
-- [W3C HTML Validator](https://validator.w3.org/) - to validate the HTML code.
-- [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) - to validate the CSS code.
-- [JS hint](https://jshint.com/) - to validate the JS code. -->
-
 ## Features 
 
 ### Existing Features
 - __Welcome__
-  <!-- - The landing page consists of a simple Heading "Welcome to Kings", big "PLAY" button and a "?" icon button. 
-  - Just so it offers the main point of focus, to play the game. The "?" icon button is there to offer a support, should the player not know the game, it makes it convenient for the visitor to easily reveal the instructions.<br>
-  ![Welcome section mobile](documentation/Feat-WelcomeMobile.PNG) -->
+  - Upon the game loading, the terminal will display a simple Heading "Welcome to Wordle", with only a prompt at the bottom of the interface for the user to enter their name. 
+  - This is to keep the interface as simply and least daunting as possible before the player begins the game.<br>
+  ![Welcome page](documentation/Feat-WelcomeMobile.PNG)
 
 - __How to Play__
   <!-- - This section revealed on clicking the "How to play" button in the menu or the "?" icon button on the landing page or player prompts, contains various subsections providing instructions with illustrations on how to play the game of kings.<br>
@@ -223,6 +166,19 @@ This view is displayed when the player has made a selection of picking the card 
   - the option of having sounds on the game;
   - customisable colour theme of cards artwork and table appearance;
   - Illustrated and/or animated reactions on reveals of the cards swapped out, for instance a good swap could display a thumbs up and a "Nice!" text over the card, whereas a bad swap could momentarily turn the image monochrome and display a message of "Oh no!". -->
+
+
+## Technologies
+- Languages used:
+  - [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
+- [Draw.io](https://app.diagrams.net/#) - a free web-based diagram drawing tool.
+- [GitPod](https://www.gitpod.io/) - Cloud-based IDE to edit code and Git version control.
+- [GitHub](https://github.com/) - to store and publish the project.
+- [Am I Responsive](https://ui.dev/amiresponsive) - to visualise the website in various display sizes.
+- [Adobe Color](https://color.adobe.com/create/color-wheel) - to generate the colour palette and Accessibility tools checking for contrast for legibility and colour-blind viewing.
+- [PEP8 guide](https://peps.python.org/pep-0008/) - for guidance on python formatting standards. 
+- [Code Institute's Python linter](https://pep8ci.herokuapp.com/) - to validate the Python code. 
+- [Heroku](https://dashboard.heroku.com/) - for deplayment of our web app.
 
 ## Testing 
 
