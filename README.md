@@ -210,73 +210,39 @@ logging back to a player's game -->
 ### Manual Testing
 
 #### Devices and browsers used
-<!-- - iPhone 12 Pro - iOS 17.5.1
-  - Safari (v17.5.1)
-  - Chrome (v127)
-  - Google (v325)
-
-- iPad Pro (12.9 inch - 4th Gen) - iPadOS 17.5.1
-  - Safari (v17.5.1)
-  - Chrome (v127)
+- iPhone 12 Pro and iPad Pro (12.9 inch - 4th Gen)
+  - IGNORED: given the CLI terminal via the web browser on these devices did not accept any keyboard entries.
 
 - Dell Precision 3510 laptop - Windows 10 Pro (2H22)
-  - Chrome (v126)
-  - Firefox (v127)
-  - Microsoft Edge (v126) -->
+  - Chrome (v128)
+  - Firefox (v129)
+  - Microsoft Edge (v128)
 
 #### Manual testing checklist
 
-<!-- | Feature | Action | Expected Behaviour | Pass/Fail | Notes |
+| Feature | Action | Expected Behaviour | Pass/Fail | Notes |
 |-|-|-|-|-|
-|Google fonts|Loading the page|Google fonts load|PASS|
-|Font awesome icons|Loading the page|Icons appear as intended|PASS|
-|Images|Loading the page|images appear as intended|PASS|
-|content text |Loading the page|text appears as intended|PASS|
-|Nav bar appearance|Loading the page|Nav bar appears as expected, collapsed hamburger icon for narrow displays|PASS|
-|Nav Button - hamburger icon|Click Hamburger icon|hamburger icon expands to reveal nav menu|PASS|
-|Nav Button - hamburger icon|Click Hamburger icon|hamburger icon is replaced with an X icon|PASS|
-|Nav Button - X icon|Click X icon|X icon is replaced with the hamburger/bars icon and menu collapses|PASS|
-|Nav button - New Game|Click button "New Game" just after loading the site|X icon is replaced with the hamburger/bars icon and menu collapses|PASS|
-|Nav button - New Game|Click button "New Game" just after loading the site|button brings up the empty player form|PASS|
-|Nav button - New Game|Click button "New Game" after starting a game|button brings up the player form prefilled with players' name|PASS|
-|Nav Button - How To Play|Click button "How To Play"|X icon is replaced with the hamburger/bars icon and menu collapses|PASS|
-|Nav Button - How To Play|Click button "How To Play"|button brings up the instructions section|PASS|
-|Nav Button - Credits|Click button "Credits"|X icon is replaced with the hamburger/bars icon and menu collapses|PASS|
-|Nav Button - Credits|Click button "Credits"|button brings up the credits section|PASS|
-|Page scaling - mobile|Viewing the page on mobile display in portrait|Font size is legible and the page does not require scrolling on timed buttons. No overlapping text or images.|PASS|
-|Page scaling - mobile|Viewing the page on mobile display in landscape|Font size scales down to fit in the height of the display. Page includes left and right margins to keep content in the centre still.|PASS|
-|Page scaling - desktop|Viewing the page on a desktop/laptop display in landscape with the browser taking the width of the display|Font size scales down to fit in the height of the display. Page includes left and right margins to keep content in the centre still.|PASS|
-|Page scaling - desktop|Viewing the page on a desktop/laptop display in landscape with the browser taking the width of the display|Font size scales down to fit in the height of the display. Page includes left and right margins to keep content in the centre still.|PASS|
-|PLAY button - Landing page|Click button "PLAY"|button brings up the blank Player form. Blank form fields display placeholders.|PASS|
-|? Button - Landing page|Click button "?"|If menu is expanded, X icon is replaced with the hamburger/bars icon and menu collapses|PASS|
-|? Button - Landing page|Click button "?"|button brings up the instructions section|PASS|
-|Add bots - player form|Click add bot buttons|Adds automated bot player names and skill level, whether field is blank or got a value. Button converts to X icon.|PASS|
-|Clear bot - player form|Click the X button in place of add bot button|Clears the adjacent field and bring it to focus ready to type a name.|PASS|
-|Gameplay - "Start Game" - player form|Click "Start Game" button with empty fields|Sets up game with assumed values, 1 human player ("player 1") and 3 bot players. Prompts first human player and presents bot player actions.|PASS|
-|Gameplay - "Start Game" - player form|Click "Start Game" button with human names in fields|Sets up game limiting the player names to 8 characters long. Prompts next human players and presents actions from any bot players included.|PASS|
-|Gameplay - "READY" - player prompts at start of round|Click "READY" button with on player prompt|Brings player to shuffle hand|PASS|
-|Gameplay - Selecting to shuffle hand - player hand|click one card|Highlights the card|PASS|
-|Gameplay - Selecting to shuffle hand - player hand|click another card|Highlights the 2nd card for a brief moment and removes all highlights|PASS|
-|Gameplay - Selecting to shuffle hand - player hand|click another pair of cards|repeats the same highlighting behaviour indefinitely until player presses done|PASS|
-|Gameplay - Selecting to shuffle hand - player hand|click one card and then select "Done"|Highlights the card, but clicking Done removes highlight and ignores it|PASS|
-|Gameplay - Count down to reveal bottom 2 cards - player hand|Click "DONE"|Page displays text "Ready…" and adds "3," "2," and "1!" revealling the bottom 2 cards for 1 second. Once cards are face down again, the knock button appears and counts down before disappearing and prompting the next human player again.|PASS|
-|Gameplay - "READY" - player prompts mid round play|Click "READY" button with on player prompt|Brings player to pick a card|PASS|
-|Gameplay - Picking a card from table view|select from discard stack or from draw stack|Isolates and enlarges card selected and offer reject and accept buttons|PASS|
-|Gameplay - Rejecting a picked card|after picking a card, reject the card|if from discard stack, display returns to regular table view. If from draw stack, displays message saying the card is being discarded and presents the knock button with countdown before prompting the next human player.|PASS|
-|Gameplay - Accepting a picked card|after picking a card, accept the card|displays player's card hand to select the card swapping out.|PASS|
-|Gameplay - selecting a card from hand to swap out|select a card from hand to swap with|displays card face of selection with heading of card being discarded,  and presents the knock button with countdown before prompting the next human player.|PASS|
-|Gameplay - Last action by player displayed in player prompt|result from discarding or swapping a card|The action taken is displayed correctly in the next player prompt|PASS|
-|Gameplay - Bell icon next to knocking player name|click the knock button on a mid round turn|Provided there is a human player before it reaches the knocking player's turn, a bell icon is visible next to the knocking player's name. |PASS|
-|Gameplay - Ending the round on first turns|click the knock button on a first turn|A human player knocking on their first turn of the game ends the round immediately, presents the table with all cards revealled and scoring added. A Bot player knocking on their first turn should still prompt the human player to have their first turn before prompting again that for the end of round.|PASS|
-|Gameplay - "READY" - player prompts at end of round|Click "READY" button on player prompt|Brings player to table view with cards revealed, scores, icons and round outcome. If any of the players have reached 200pts or more, it should announce the end of the game, otherwise it’s end of round.|PASS|
-|Gameplay - "Next Round" - end of Round|Click "next round" button|Prompts next human player as normal, displaying any actions taken by bot players that follow the dealer player of the round. The game remember the names and scores from the last round, but the cards have been freshly shuffled and dealt.|PASS|
-|Gameplay - "Next Game" - end of Game|Click "next game" button|Brings player back to the player form prefilled with player names|PASS|
-|Instructions - Navigating|Click left or right|Will navigate back and forth through the pages. Clicking left on pg 1 or right on the last page should roll around to the other end (1 backwards to 10 or 10 forwards to 1)|PASS|
-|Instructions - closing|Click the X between the arrows|How to play section closes and resumes to whatever stage the gameplay is at.|PASS|
-|Credits - closing|Click the X button near the bottom|Credits section closes and resumes to whatever stage the gameplay is at.|PASS|
-|Credits - links|Click links for the GitHub repository or the WhatsApp Business|Either links will open in a new tab or open the relevant app should the visitor have the app on their phone whilst visiting from their phone.|PASS|
-|Error 404 page|Enter non-existing url for the site|Calls up custom 404.html|PASS|
-|Error 404 page|Click on the Home button|Brings viewer back to main page|PASS| -->
+|Heroku App loads with no errors|Open web app|CLI loads to the welcome page, prompting user for name|PASS|
+|Automatic name given|Press enter without typing a name|Game prints out "Welcome Player-1"|PASS|
+|Player name is registered|Enter a name on welcome page|See player name repeated back in "Welcome {player name}"|PASS|
+|Player data is created and recorded in worksheet|Enter a name on welcome page|See player name and data added on new line in the worksheet|PASS|
+|Game play - 1st view|Loading after name input|Terminal prints: Welcome message, including how to access rules. Blank lines for missing guesses are rendered. Prompt asking for a guess.|PASS|
+|Game play - clues on guesses|Loading after guess input|Prints the last guess in one of the previously blank lines and renders any correctly guess letters: Bright Yellow if exists but not in the correct place. Green if it matches place as well.|PASS|
+|Game play - display after a guess|Loading after guess input|Terminal prints: Same welcome message, including how to access rules. Prints the last guess in one of the lines and renders with clues. Blank lines for missing guesses are rendered.|PASS|
+|Game play - display after a wrong guess|Loading after guess input|Prints a message advising the guess was incorrect, how many chances there are left and prompts player for another guess.|PASS|
+|Game play - display after a correct guess|Loading after guess input|Prints a message advising the guess was Correct. Prints current game data and prompts player for another game.|PASS|
+|Game play - display after running out of guesses|Loading after 6 incorrect guess inputs|Prints a message advising the game is over and what was the word selected. Resets the current streak to 0, whilst longuest streak remains as the longest achieved in this session. Prints current game data and prompts player for another game.|PASS|
+|Game play - INVALID guess input - not 5 characters|Loading after a guess input either shorter or longer than 5 characters|Prints message error message advising the guess must be 5 chars long and length entered. Ignoring any leading or following spaces around the word.|PASS|
+|Game play - INVALID guess input - not all alphabetic characters|Loading after a guess input has either numeric or special/punctuation characters|Prints message error message advising the guess must contain letters only. Ignoring any leading or following spaces around the word.|PASS|
+|Game play - INVALID guess input - not a word in the dictionary|Loading after a guess input is not a word in the dictionary used|Prints message error message advising the guess must match a word in the dictionary. Ignoring any leading or following spaces around the word.|PASS|
+|Rules of the game - opening|Enter "help!" as a guess|Terminal prints out the rules and waits for the enter key to be pressed to return back to the game.|PASS|
+|Rules of the game - closing|Press the enter key|Terminal prints to display the game again as it was left.|PASS|
+|Scoring - tracks current streak|On winning rounds|increments current streak|PASS|
+|Scoring - tracks highscore correctly|on winning and losing rounds|it retains the highest number of winning streaks in the session|PASS|
+|Scoring - calculates average correctly|on winning rounds|calculates the avergae number of guesses taken in winning rounds|PASS|
+|Prompt to play another game - play again|Press the enter key|Terminal print a new game, back to displaying the 6 blank lines ready to guess a new word.|PASS|
+|Prompt to play another game - exit the game|Input "n" or "N" and press the enter key|Terminal prints a goodbye message to the player|PASS|
+
 
 
 
