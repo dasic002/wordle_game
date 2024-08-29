@@ -1,5 +1,5 @@
 # Wordle game
-For my third portfolio project with Code Institute I built a python game based on a game I play everyday, **Wordle**.
+For my third portfolio project with Code Institute, I built a python game based on a game I play every day, **Wordle**.
 
 I will recreate a version of the game to be played on a Command-Line Interface (CLI) coded with python.
 
@@ -19,14 +19,14 @@ If the player misses a day or fails to guess the word, the winning streak is bro
 
 ### User stories
 #### First time player
-- Upon visiting the site the first time want to have the option to skip reading the intructions and proceed straight with the game.
+- Upon visiting the site, the first time want to have the option to skip reading the instructions and proceed straight with the game.
 - I want to be able to refer to the instructions mid play without losing the current state of my game.
 
 #### An experienced Wordle player introduced to this version
-- I want the gameplay to be as accurate to the offical game, this means:
+- I want the gameplay to be as accurate to the official game, this means:
   1) Appearance - the game is similar enough to the official game that it is easy to pick up.
   2) Gameplay - being able to see what guesses have been made for reference in the next guess.
-  3) Stats - track my progress, I want to use this game to improve my skill in the offical game.
+  3) Stats - track my progress, I want to use this game to improve my skill in the official game.
 
 #### Returning player
 - I want to be able to play the game on any device, be it a desktop PC or my mobile.
@@ -44,7 +44,7 @@ Start with an MVP and build on desirable features, to create a simplistic, fun a
 ### Scope
 
 __Must have features:__
-- Word bank of 5-letter words in US english.
+- Word bank of 5-letter words in US English.
 - Randomly select the word to guess.
 - Allow player to enter up to 6 guess and provide basic feedback on letters correctly guessed, differentiating placement from inclusion.
 - Reveal the selected word in case the player has not guessed the word.
@@ -57,10 +57,10 @@ __Should have:__
 - Tracking of scores in the session to feedback to player.
 - Invite the player to play another game.
 - Clean GUI, using colours rather than symbols for feedback on guesses. Selecting colours that are as accessible for colour blind users too.
-- Rules explaning how to play the game. 
+- Rules explaining how to play the game. 
 
 __Could have:__
-- Save session scores in a database to provide feedback to user on how do they compare against other players.
+- Save session scores in a database to provide feedback to user on how they compare against other players.
 - Provide an optional breakdown of the player's scores.
 - Resume sessions, the game could be made to allow the user to enter their given ID to resume winning streak count.
 - Praise from the game matching that of wordle, which depends on how many guesses made before finding the selected word.
@@ -104,7 +104,7 @@ __Note:__ If the play simply pressed enter without entering a name, the game wil
 
 The display will include:
   1) a personalised message of "Welcome, _player name_".
-  2) an instructions how to bring up the rules of the game.
+  2) an instruction how to bring up the rules of the game.
   3) blank guess lines shown as a series of asterisks __` *  *  *  *  * `__.
   4) prompt for player to enter their guess.<br>
   
@@ -155,9 +155,9 @@ On 6 failed attempts, the terminal prints out "GAME OVER", reveals the word of t
 ![Game lost](documentation/feat_game-lost.PNG)
 
 ##### Scores
-In either case the game will keep track of the score, namely the consequitive number of times the player has guessed the word correctly. Should it be the maximum the player has managed to get in this session, the game will record it as a higscore. Should the player, win the game, the "Current streak" counter increments by 1, if the game was lost, it resets to 0.
+In either case the game will keep track of the score, namely the consecutive number of times the player has guessed the word correctly. Should it be the maximum the player has managed to get in this session, the game will record it as a high score. Should the player, win the game, the "Current streak" counter increments by 1, if the game was lost, it resets to 0.
 
-The game will also calculate and display the average number of guesses the player has needed to guess the word of the day. It will also lookup the player's longest winning streak and rank the player against the other game sessions recorded.
+The game will also calculate and display the average number of guesses the player has needed to guess the word of the day. It will also look up the player's longest winning streak and rank the player against the other game sessions recorded.
 
 ![Game scoring](documentation/feat_game-scoring.PNG)
 
@@ -175,7 +175,7 @@ Should the player need to be reminded of the rules, the player can enter "help!"
 These features were not implemented just so I did not get distracted with a feature creep and not deliver on my MVP.
 
 #### __Alphabet checklist__
-The official Wordle game includes the whole keyboard in the display, highlighting which letters have not been used, which are non existing in the word of the day and existing or correctly placed. This helps the player visualise which letters they could use on their next guess much like a checklist of the alphabet. It becomes easier to try sounding out words for the next guess without using the letters the game has rules out. 
+The official Wordle game includes the whole keyboard in the display, highlighting which letters have not been used, which are non-existing in the word of the day and existing or correctly placed. This helps the player visualise which letters they could use on their next guess much like a checklist of the alphabet. It becomes easier to try sounding out words for the next guess without using the letters the game has rules out. 
 
 __How might we create this?__
 We have not recreated this feature, but we could potentially use the empty space to the right of the guesses to print out the alphabet and highlighting what letters are still available to use. This would probably be done as dictionary variable, where the alphabet forms the keys and the values are the same as used for listing out the clues in a guess ('-' for unused/unchecked, 'X' for not in word of the day, 'O' for exist in Word of the day, 'C' is in the correct place of the word of the day).
@@ -188,12 +188,12 @@ For example, should the word of the day be __LIVER__ and:
 1) the first guess be __PLATE__, then __L__ and __E__ are indicated as exiting but being in the wrong place, the second guess would need to include both __L__ and __E__, so it could __not__ be something like _NERVE_ or _LOUSY_, but could be _LIKED_ or _LOVER_.
 2) Should the second guess in fact be __LIKED__, the letters __L__, __I__ and __E__ will be indicated as correctly guessed and need to be used in the same places for the following guess, something looking like __L I _ E _.__, which could be LIFER, LIMEN, LINEN, LINER, LIVED, LIVER just to name a few. 
 
-The aim of this feature is to avoid the player trying completely different words in order to find other missing letters without the constraints of considering the words that the word of the day could be with the clues given. For instance, without __Hard Mode__ the player's second guess could be __VIRUS__ (after 1st as __PLATE__), it doesn't include __L__ and __E__ that would have been highlighted from _PLATE_, but does include __V__, __I__ and __R__. 
+The aim of this feature is to avoid the player trying completely different words to find other missing letters without the constraints of considering the words that the word of the day could be with the clues given. For instance, without __Hard Mode__ the player's second guess could be __VIRUS__ (after 1st as __PLATE__), it doesn't include __L__ and __E__ that would have been highlighted from _PLATE_, but does include __V__, __I__ and __R__. 
 
 From those 2 guesses, the player should be able to deduce that the word of the day is __LIVER__ on the third guess. 
 
 __How might we create this?__
-If we were to implement this feature we could store the list output from the evaluation of previous guesses to use in a validation of input and comparing the previously correct guessed letter placement matching that in the new guess. 
+If we were to implement this feature, we could store the list output from the evaluation of previous guesses to use in a validation of input and comparing the previously correct guessed letter placement matching that in the new guess. 
 For letters existing in the selected word, the function evaluating guesses can output a dictionary of these letters, and the input validation checks that these letters are used in the latest input before it proceeds to evaluating for the game. 
 
 
@@ -207,15 +207,15 @@ Wordle has a feedback word for correctly guessing the word of the day at each at
 6) sixth attempt - __Phew__
 
 __How might we create this?__
-This messages could have been a constant variable as a list and upon winning the round, the message is composed calling the list item by index. The index would be calculated with the length of the list of guesses made minus 1.
+These messages could have been a constant variable as a list and upon winning the round, the message is composed calling the list item by index. The index would be calculated with the length of the list of guesses made minus 1.
 
 
 #### __Returning players login__
-Playing the official Wordle game the game recognises the devices, so as the player returns day after day it is able to track the player's stats. For extended features, players can register an account with New York Times to access other games too. The benefit is that a returning player can keep building on their winning streak to overcome their own highscore (longest streak) without having to play more rounds in one single session of accessing the game.
+Playing the official Wordle game the game recognises the devices, so as the player returns day after day it can track the player's stats. For extended features, players can register an account with New York Times to access other games too. The benefit is that a returning player can keep building on their winning streak to overcome their own high score (longest streak) without having to play more rounds in one single session of accessing the game.
 
 __How might we create this?__
 The most feasible way I can think of is to either:
-- provide new players their timestamp based ID after entering their name so that next time they access the game, if it is entered in the name prompt of the welcome page, the game can recognise the input is all numeric and 12 digits long, which makes the game lookup the number as an ID, if it existts in our worksheet it will pull the data into the game and allow the next round, if won to increment the current winning streak as if the player had not closed the previous game.
+- provide new players their timestamp based ID after entering their name so that next time they access the game, if it is entered in the name prompt of the welcome page, the game can recognise the input is all numeric and 12 digits long, which makes the game lookup the number as an ID, if it exists in our worksheet it will pull the data into the game and allow the next round, if won to increment the current winning streak as if the player had not closed the previous game.
 - or that when new players enter their name on the welcome page prompt, the game asks the player to provide a unique username and password, with the game confirming that the username is valid and available in the worksheet. Next time the player returns, when prompted for a name, the player can enter their username, the game looks up the usernames in the worksheet and prompts for a password, before it resumes the game with the same stats. 
 
 
@@ -229,7 +229,7 @@ The most feasible way I can think of is to either:
 - [Adobe Color](https://color.adobe.com/create/color-wheel) - to generate the colour palette and Accessibility tools checking for contrast for legibility and colour-blind viewing.
 - [PEP8 guide](https://peps.python.org/pep-0008/) - for guidance on python formatting standards. 
 - [Code Institute's Python linter](https://pep8ci.herokuapp.com/) - to validate the Python code. 
-- [Heroku](https://dashboard.heroku.com/) - for deplayment of our web app.
+- [Heroku](https://dashboard.heroku.com/) - for deployment of our web app.
 - [Pilestone - Color Blind Vision Simulator](https://pilestone.com/pages/color-blindness-simulator-1)
 
 ## Testing 
@@ -275,8 +275,8 @@ The most feasible way I can think of is to either:
 |Rules of the game - opening|Enter "help!" as a guess|Terminal prints out the rules and waits for the enter key to be pressed to return back to the game.|PASS|
 |Rules of the game - closing|Press the enter key|Terminal prints to display the game again as it was left.|PASS|
 |Scoring - tracks current streak|On winning rounds|increments current streak|PASS|
-|Scoring - tracks highscore correctly|on winning and losing rounds|it retains the highest number of winning streaks in the session|PASS|
-|Scoring - calculates average correctly|on winning rounds|calculates the avergae number of guesses taken in winning rounds|PASS|
+|Scoring - tracks high score correctly|on winning and losing rounds|it retains the highest number of winning streaks in the session|PASS|
+|Scoring - calculates average correctly|on winning rounds|calculates the average number of guesses taken in winning rounds|PASS|
 |Prompt to play another game - play again|Press the enter key|Terminal print a new game, back to displaying the 6 blank lines ready to guess a new word.|PASS|
 |Prompt to play another game - exit the game|Input "n" or "N" and press the enter key|Terminal prints a goodbye message to the player|PASS|
 
@@ -286,7 +286,7 @@ The most feasible way I can think of is to either:
 ### Bugs
 
 - __ANSI escape 8-bit colours not visible on Heroku - FIXED__<br>
-Heroku allows for colours in it's app, but these are restricted to 3-bit and 4-bit, so have selected colours from that selection instead.
+Heroku allows for colours in its app, but these are restricted to 3-bit and 4-bit, so have selected colours from that selection instead.
 
 - __Dictionary includes words with the character "ƒ" - FIXED__<br>
 This character appeared on words that should have ended with an accented e (é), like __sauté__. For ease of playing the game this character has been replaced with a plain "e".
@@ -302,14 +302,14 @@ This character appeared on words that should have ended with an accented e (é),
 6) You should be directed to the __"Deploy"__ tab of the app. Here you'll see a __"Deployment method"__ section, select __"GitHub"__.
 7) Another section should reveal __"Connect to GitHub"__, if you have connected your GitHub account, you should see your account listed and search bar to find the repository to deploy from. Click __"Search"__ and click __"Connect"__ on the correct repository listed below.
 8) Before we proceed with deployment further, we need to navigate to the __"Settings"__ tab.
-9) Expand Config Vars by clicking __"Reveal Config Vars"__, and add a key of `PORT` with a value of `8000`.
+9) Expand Config Vars by clicking __"Reveal Config Vars"__ and add a key of `PORT` with a value of `8000`.
 10) If your project contains credentials to access secure data, you'll need to add another Config Var, add a key of `CREDS` and paste the JSON content as the value.
 11) Next, we need to add two buildpacks, note the order is __important__, select and add buildpack as follows:
 
 1. `heroku/python`
 2. `heroku/nodejs`
 
-12) Navigate back to the __"Deploy"__ tab, scroll down to __"Manual deploy"__, select the appropriate branch and click __"Deploy Branch"__. This step take short while for the server to compile the code and dependencies for the app.
+12) Navigate back to the __"Deploy"__ tab, scroll down to __"Manual deploy"__, select the appropriate branch and click __"Deploy Branch"__. This step takes a short while for the server to compile the code and dependencies for the app.
 
 To view the deployed app, scroll to the top and click "Open app".
 
@@ -320,7 +320,7 @@ The deployed app can be found [here.](https://wordle-dasic002-367fb61feaeb.herok
 The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
 
 
-### Branching
+<!-- ### Branching -->
 
 <!-- This current branch, is the main branch being submitted for grading, it only differs from the pre-submission-archive branch in that it holds no debug code in the JavaScript file. -->
 
@@ -329,7 +329,7 @@ The deployment terminal is set to 80 columns by 24 rows. That means that each li
 
 ### Media
 - [Am I Responsive](https://ui.dev/amiresponsive) - to visualise the website in various display sizes as the preview used in this readme file.
-- [Pilestone - Color Blind Vision Simulator](https://pilestone.com/pages/color-blindness-simulator-1) - used to generate the view of colour blind conditions of the CLI based game.
+- [Pilestone - Color Blind Vision Simulator](https://pilestone.com/pages/color-blindness-simulator-1) - used to generate the view of colour-blind conditions of the CLI based game.
 
 ### Code
 
