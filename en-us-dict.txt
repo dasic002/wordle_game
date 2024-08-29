@@ -476,7 +476,7 @@ blanc
 bland
 blank
 blare
-blasƒ
+blase
 blast
 blaze
 bleak
@@ -3054,7 +3054,7 @@ modes
 modus
 mogul
 moils
-moirƒ
+moire
 moist
 molar
 molds
@@ -3338,7 +3338,7 @@ ousts
 outdo
 outer
 outgo
-outrƒ
+outre
 ouzel
 ovals
 ovary
@@ -3964,7 +3964,7 @@ rotas
 rotes
 rotor
 rouen
-rouƒs
+roues
 rouge
 rough
 round
@@ -4063,7 +4063,7 @@ sauce
 saucy
 saudi
 sauna
-sautƒ
+saute
 saved
 saver
 saves
