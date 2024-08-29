@@ -70,102 +70,116 @@ __Won't have:__
 
 ### Surface
 #### Colour theme
-<!-- For the Classic card game look, palette made up of 2 greens and a deep purple and off white and black. The dusty (lighter green) used to mimic the sort of matte finish of felted card tables, whilst the dark green offers better contrast for information pertaining to the players. The deep purple was selected on buttons so it complimented the greens chosen and offered plenty of contrast to its labels in the off white colour. This palette was used to create a fun and reminiscent feel of card games whilst still offering a comfortable viewing experience.
+Considering the limitations in the CLI for colour and formatting, I followed the appearance of wordle in dark mode with some consideration for accessibility for colour blind users.
 
-![Colour theme produced using Adobe Color tool](documentation/AdobeColor-Kings_theme.PNG) -->
+Originally, the chosen colours were green for correctly guessed letters, dark purple for wrong placement of letters and grey for not existent. This provided an optimum contrast between any colour when run through a simulator.
 
-<!-- #### Typography -->
+However, the chosen colours, used an 8-bit configuration in the ANSI escape code, once the code was deployed to Heroku, the terminal did not display any of this formatting.
+
+![Original colour selection](documentation/Adobe-color-original-colours.PNG)
+
+Being constricted to 3-bit and 4-bit palette, it took a few deployments to test the colour the CLI would output. 
+
+Firstly, attempted using the closest colours available, which unfortunately meant the purple/magenta available was too close to the grey being used and produced a low contrast. 
+
+![Deployment with the available green and purple colours](documentation/purple-lacks-contrast.PNG)<br>
+![Using Adobe Colour blindness tool](documentation/purple-lacks-contrast_adobe-sim.PNG)
+
+Eventually, a version of the code was deployed that printed out all colours available so we could pick the RGB values and use Adobe Colour to see which might work best for the various types of colour blindness. It was found that the bright yellow, standard green and a darker grey was most suitable.
+
+![Deployment printing all library colours available](documentation/testing-colour-selection.PNG)<br>
+![Using Adobe Colour blindness tool](documentation/colour-selection-adobe-sim.PNG)
+
 ## Features 
 
 ### Existing Features
-- __Welcome__
-  - Upon the game loading, the terminal will display a simple Heading "Welcome to Wordle", with only a prompt at the bottom of the interface for the user to enter their name. 
-  - This is to keep the interface as simply and least daunting as possible before the player begins the game.<br>
-  ![Welcome page](documentation/Feat-WelcomeMobile.PNG)
+#### Welcome
+Upon the game loading, the terminal will display a simple Heading "Welcome to Wordle", with only a prompt at the bottom of the interface for the user to enter their name. This is to keep the interface as simply and least daunting as possible before the player begins the game.<br>
+  ![Welcome page](documentation/feat_welcome.PNG)
 
-- __How to Play__
-  <!-- - This section revealed on clicking the "How to play" button in the menu or the "?" icon button on the landing page or player prompts, contains various subsections providing instructions with illustrations on how to play the game of kings.<br>
-  ![How To Play pg1 of 10](documentation/Feat-htp1_10.PNG) ![How To Play pg2 of 10](documentation/Feat-htp2_10.PNG) ![How To Play pg3 of 10](documentation/Feat-htp3_10.PNG) 
-  - The steps are provided in subsections that are navigated using the left and right arrow buttons at the bottom. Whilst the "X" button returns to the game area, this is so the player can refer to the instructions at any time and easily resume their game.<br>
-  ![How To Play navigation](documentation/Feat-htp_nav.PNG)  -->
+#### New game display
+Once the player has input a name the terminal generates the user variables and word selection and presents the game in the CLI after clearing the welcome display away.
 
-- __Credits__
-  <!-- - Includes mentions to those that taught me the game, a link to the repository and a link to contact via my business (Studio Silva) WhatsApp.<br>
-  ![Credits section](documentation/Feat-Credits.PNG) -->
+__Note:__ If the play simply pressed enter without entering a name, the game will use the default of "Player-1".
 
-- __Error 404 Page__
-  <!-- - A page in keeping with the style of the main page of the site to indicate the visitor has stumbled upon an non-existent URL of our site and to point them back to our homepage.<br>
-  ![Error 404 page](documentation/Feat-404page.PNG) -->
-
-- __Player Prompt__
-  <!-- The player prompt screen prompts the human player(s) that it is their turn, particularly useful when more than one human is playing on the same device, to help keep the player's hand and picks a secret. The prompt includes a section with last actions taken by each player. The prompt will always include the button "READY" for the player to move on to their next action and the "?" icon button as a shortcut to review the instructions. -->
-
-  <!-- - __Initial prompt__ - At the start of the game or round this section will have an entry of "New Game!" or "New Round!" and any actions by players that have taken their turn. Mostly indicating that the players have had a turn to look at their bottom 2 cards and if any of them have decided knock already. The button "READY" will move the player to see their hand, allow shuffling and reveal the bottom 2 cards when done.<br>
-  ![Early player prompt](documentation/Feat-player_prompt.PNG) -->
-
-  <!-- - __Mid round prompt__ - After all players have had a chance to see their bottom 2 cards, the "READY" button brings the player to the table view where they can opt to take the card from the discard stack or draw from the draw stack. Hence, the first difference in the prompt is the addition of "Pick a card!" on the heading. The players' actions should also describe them as the player would view on the table. For example:
-      - If a player has picked the top card from the discard stack and used it to swap with another in their hand, the syntax will follow <br>
-      __"[playerName]__ took the __[name of card on discard stack]__ for their __[position of card in hand]__ , __[name of card discarded from their hand]"__<br>
-      This is useful in gameplay to get an idea of how good the other players are doing and for the intriguing moment the player may have lost a good card from their hand.
-      - If a player has drawn a new card and swapped a card in their hand, the syntax becomes <br>
-      __"[playerName]__ drew for their __[position of card in hand]__ , __[name of card discarded from their hand]"__<br>
-      The difference being that it omits the name of the card drawn as in real life no other player would have visibility of what was picked up.
-      - If a player has drawn and discarded a card, presumably because the value was too high.<br>
-      __"[playerName]__ drew and discarded __[name of card discarded]"__<br>
-  ![Mid Round player prompt](documentation/Feat-player_prompt2.PNG) -->
-
-  <!-- - __Last playing prompt of the round__ - After a player has opted to knock on their cards, all players thereafter will see the prompt with the heading changed to "last card!" and see the text "**KNOCKED!**" added at the end of that player's action. This is to offer the others a chance to have their last turn of the round.<br>
-  ![last playing prompt of the round](documentation/Feat-player_prompt3.PNG) -->
-
-  <!-- - __End of round prompt__ - Only visible to the knocking player (if human) or to the next human player. This triggers the scoring of all players' cards and the "READY" button will reveal the table view with the scores, players' cards and outcome of the round or game.<br>
-  ![end of round prompt](documentation/Feat-player_prompt4.PNG) -->
-
-<!-- - __Player card hand__
-  - __Selecting to shuffle and countdown to reveal__
-  After the player has gone through the initial prompt, the game displays the player's card hand as they'd see on the table. The player can opt to shuffle 2 cards at a time on their hand in the hope it may reveal higher values on the bottom 2 cards. On clicking "Done" the cards can no longer be selected and the game counts down to reveal these bottom cards.<br>
-  ![before selecting to shuffle](documentation/Feat-card_to_shuffle.PNG) 
-  ![selecting cards to shuffle](documentation/Feat-card_to_selected_pair.PNG)
-  ![Countdown to reveal](documentation/Feat-card_to_btm_reveal.PNG) -->
+The display will include:
+  1) a personalised message of "Welcome, _player name_".
+  2) an instructions how to bring up the rules of the game.
+  3) blank guess lines shown as a series of asterisks __` *  *  *  *  * `__.
+  4) prompt for player to enter their guess.<br>
   
-  <!-- - __Selecting a card to swap with picked__
-  After the player as picked a card from either stack on the table and accepted to swap that card with one in their hand, the game reuses the same player card hand display to show the player's hand so the player can select which to swap it with. On selection of the card, the game will reveal the card being discarded and countdown the knocking button before moving on to the next player.<br>
-  ![selecting cards to shuffle](documentation/Feat-card_to_swap.PNG) -->
+![New game displayed](documentation/feat_game_display.PNG)
   
-<!-- - __Knocking - bell icon button__
-Available after the player has viewed their bottom 2 cards or swapped or discarded a card, the button for knocking appears with a 3 seconds countdown to allow the player to lock in their hand if they believe they have the winning hand.<br>
-![knock after viewing hand for first time](documentation/Feat-knock_on_start.PNG)
-![knock after discarding a card](documentation/Feat-knock_after_pick.PNG)<br>
-If no other player has knocked yet, the button is enabled still and the icon will appear in the deep purple and contrast well with the background. After another player has knocked, the button is disabled, the content is shown in grey and the countdown is shortened to 1 second as it the player cannot act any longer on it.<br>
-![enabled knocking button](documentation/Feat-Knock_enabled.PNG) 
-![disabled knocking button](documentation/Feat-Knock_disabled.PNG)<br> -->
+#### Player Prompt
+The game prompts the player to take a guess, provided it passes the validation checks, the game checks the input guess against the randomly selected word for this session. Every time the guess is incorrect the prompt changes to "Oops! that guess is wrong, please try again!".
 
-<!-- - __Table view__
-  - __To pick a card__ - shown after the player has been prompted to pick up a card, this screen displays the table with the other players above, the stacks to pick from in the middle and the player's hand below. In this view, the stacks section has the deep purple background to indicate to the player that their next action involves making a selection here. Should another player have knocked for their hand, a bell icon will appear next to their name.<br>
-  ![picking a card from a stack](documentation/Feat-table-cards-dealt.PNG)
-  ![knocking player indicated by icon](documentation/Feat-table_knocked.PNG)
-  
-  - __End of Round/Game__ - shown after the human player has been prompted with end of round, the same view is displayed, except this time the players' cards are all revealed, scores assigned and in place of the stacks of cards in the middle, the round or game outcome is announced and a button prompting the player to move on to the next round or a new game. Also visible at this stage are icons next to the players' names, the winner of the round or game will have a trophy icon. Should the winner not be the player that knocked the icon "2X" is assigned to the knocking player to indicate their score of this round has been doubled. All other players are assigned an "X" icon.<br>
-  ![end of round table](documentation/Feat-end_of_round.PNG)
-  ![end of round table, knocking player lost](documentation/Feat-end_of_round_doubled.PNG)
-  ![end of game table](documentation/Feat-end_of_game.PNG) -->
+![Prompt after incorrect guess]()
 
-<!-- - __Player picked card__
-This view is displayed when the player has made a selection of picking the card from either stack. It present the picked card in a larger format and offers a reject and an accept button to make their decision. Accepting the card will display the player's hand to select the position in their hand that they are swapping it with. Should the card be picked from the discard stack, rejecting this card will simply return to the table, whilst picking from the draw stack it will discard the card. This is because the player's turn must always end with discarding a card, be it from the draw stack or from their hand.<br>
-![view of picked card](documentation/Feat-picked_card.PNG) -->
+#### Invalid guess inputs display
+To reduce frustrations over incorrect guesses we have put in place some input validations, as well as adding a `strip()` method to the guess input so should the user enter a whitespace before or after typing their word, it will not trigger the validation checks for a seemingly valid guess.
+
+##### Invalid data: not exactly 5 characters long
+This first check verifies the guess is only 5 characters long, not shorter or longer. In the chance the player enters a guess that fails this check the game prints out the game display again but with the message advising the guess was invalid and explaining why so.
+
+![Invalid data: shorter than 5 chars](documentation/feat_invalid-short-input.PNG)
+
+![Invalid data: longer than 5 chars](documentation/feat_invalid-long-input.PNG)
+
+##### Invalid data: includes characters not in the alphabet
+Should the guess input pass the 5 characters long verification, the next check verifies that no characters other than letters in the alphabet have been used. Should the player enter punctuation marks, numbers or other special characters, the game will refresh and display the error message explaining why the last entered guess was not valid.
+
+![Invalid data: includes a non-alphabetic character](documentation/feat_invalid-non-alpha-input.PNG)
+
+##### Invalid data: is not a word in the dictionary used
+Finally, after passing the other checks, the last check verifies that the input is a word included in our dictionary. Should it not be included in the dictionary, it will refresh the game and advise the word is not in the dictionary.
+
+![Invalid data: not in our dictionary](documentation/feat_invalid-not-a-word-input.PNG)
+
+#### Clues on guesses made
+The objective of wordle is that the player gets given clues on all guesses so the player can deduce what the selected word is. In our version of the game:
+- Blank lines are shown as plain text asterisks ` * `.
+- Letters not existing in the selected word are shown in a dark grey background - these tell the player to avoid using these letters in future guesses.
+- Letters existing in the selected word but in the incorrect place are shown in a bright yellow background - these tell the player to try words where this letter is in another place.
+- Letters existing in the selected word and in the correct place are shown in a green background - these tell the player to try words where this letter is as it is.
+
+#### End of Round
+The round ends when the player has either guessed the selected word or has failed to do so after 6 attempts.
+##### Correct guess
+On guessing the word, the terminal prints out "Nicely done, _player name_!" and confirms the word of the day.
+
+![Game won](documentation/feat_game-won.PNG)
+
+##### 6 Wrong guesses
+On 6 failed attempts, the terminal prints out "GAME OVER", reveals the word of the day and "Oh no, _player name_! You've lost this streak!".
+
+![Game lost](documentation/feat_game-lost.PNG)
+
+##### Scores
+In either case the game will keep track of the score, namely the consequitive number of times the player has guessed the word correctly. Should it be the maximum the player has managed to get in this session, the game will record it as a higscore. Should the player, win the game, the "Current streak" counter increments by 1, if the game was lost, it resets to 0.
+
+The game will also calculate and display the average number of guesses the player has needed to guess the word of the day. It will also lookup the player's longest winning streak and rank the player against the other game sessions recorded.
+
+![Game scoring](documentation/feat_game-scoring.PNG)
+
+##### Inviting for a new game
+At the end of the round, the game prompts the player for another game. If the player inputs anything but "n" or "N", a new round will start with a new word of the game. Should the player have had enough, they'll enter "n" or "N" for No to exit the game. On doing so a message thanking the player for playing will be printed out.
+
+![Game exit](documentation/feat_game-exit.PNG)
+
+#### Game rules display
+Should the player need to be reminded of the rules, the player can enter "help!" as a guess input. This will bypass the usual validations and cause the game to print the rules on a clear terminal and request a prompt just to press 'Enter' when done with the game for when the player feels ready to resume the game.
+
+![Rules display](documentation/feat_rules.PNG)
 
 ### Features Left to Implement
-<!-- - A more intuitive game for a single human player would display the game on the table and show the moves the bot players make as you would playing the game in real life. For example, the game depicts the table with the players' cards face down and as a bot makes its moves of drawing a card from the draw stack, a card is animated as being removed from the stack and if swapped it displays that movement too. There it is easier to visualise the game as opposed to having to read the summary of steps between turns where some might find it too disjointed in the gameplay.
+<!-- 
+Wordle includes the whole keyboard in the display, highlighting which letters have not been used, which are non existing, existing or correctly placed, this helps the player visualise which letters they could use like a checklist of the alphabet and it becomes easier to try sounding out words for the next guess. We have not recreated this feature, but we could potentially use the empty space to the right of the guesses to print out the alphabet and highlighting what letters are still available to use.
 
-- To make the game play as accurate to real life, knocking on viewing of the bottom 2 cards of the player's hand should record time taken by the player from the moment the knock button appears and compare that to whoever has knocked too, whoever was quickest to knock after viewing their cards gets the status. However, this is rare for players to want to knock this early and even more so for more than one player to feel confident enough to knock this early and would only be necessary if the game remains played on one single device.
+Wordle includes __Hard Mode__ which tracks letters the player has guessed that exist in the selected word and should the player not use them in the next guess they attempt, wordle will not accept the entry. Should the letter be in the correct place, wordle will only accept words with the correctly guessed letters in the same places. For example, should the selected word be LIVER and the first guess be PLATE, then L and E are indicated as exiting but being in the wrong place, the second guess would need to include both L and E, so it could not be something like NERVE or LOUSY, but could be LIKED or LOVER. Should the second guess in fact be LIKED, the letters L, I and E will be indicated as correctly guessed and need to be used in the same places for the following guess, something looking like L I _ E _, which could be LIFER, LIMEN, LINEN, LINER, LIVED, LIVER just to name a few. The aim of this feature is to avoid the player trying completely different words in order to find other missing letters without the constraints of considering the words that the could work with the clues given. For instance, without __Hard Mode__ the player's second guess could be VIRUS, it doesn't include L and E that would be highlighted from PLATE, but does include V, I and R. From those 2 guesses, the player should be able to deduce that the selected word is LIVER on the third guess. If we were to implement this feature we could store the list output from the evaluation of previous guesses to evaluate whether use in a validation looking for the previously correct guessed letter placement matching that in the new guess. For letters existing in the selected word, the function evaluating guesses can output a dictionary of these letters, and the input validation check that these letters are used in the latest input before it proceeds to evaluating for the game. 
 
-- The game is made to play as a multiplayer, the initial idea was to make the game playable over the internet with multiple human players joining a table, but was advised by my mentor that this is a feature outside of the scope of JavaScript alone and have not learnt about WebSocket yet.
+Feedback messages
 
-- The original intent with the BotSkill value, was to mimic a bot player that might have poorer memory for remembering the cards accurately. So 1 - as novice, might be a bot that remembers a particular card as being in another position or have thought it's value was higher and risk losing good cards. Whilst level 3 - expert, might remember the cards it has seen with great accuracy or that it employs a very discerning tactic of wanting for only the best cards to be picked up before "knocking", locking their hand.
-
-- More game interactions. Initially planned to include:
-  - the option of having sounds on the game;
-  - customisable colour theme of cards artwork and table appearance;
-  - Illustrated and/or animated reactions on reveals of the cards swapped out, for instance a good swap could display a thumbs up and a "Nice!" text over the card, whereas a bad swap could momentarily turn the image monochrome and display a message of "Oh no!". -->
+logging back to a player's game -->
 
 
 ## Technologies
@@ -179,24 +193,19 @@ This view is displayed when the player has made a selection of picking the card 
 - [PEP8 guide](https://peps.python.org/pep-0008/) - for guidance on python formatting standards. 
 - [Code Institute's Python linter](https://pep8ci.herokuapp.com/) - to validate the Python code. 
 - [Heroku](https://dashboard.heroku.com/) - for deplayment of our web app.
+- [Pilestone - Color Blind Vision Simulator](https://pilestone.com/pages/color-blindness-simulator-1)
 
 ## Testing 
 
 ### Validator Testing 
 
-- Python
-  <!-- - No errors were found when passing through [PEP8](http://pep8online.com/)<br>
-  ![error free screenshot](documentation/Test-JS_Validation.PNG) -->
-<!-- - Accessibility
-  - Running the site through lighthouse analysis confirms the colours and fonts used legible and accessible on either:
-    - Mobile:<br>
-  ![Lighthouse mobile analysis](documentation/Lighthouse_analysis-Mobile.PNG)
- 
-    - Desktop:<br>
-  ![Lighthouse desktop analysis](documentation/Lighthouse_analysis-Desktop.PNG)
+- [Code Institute's Python linter](https://pep8ci.herokuapp.com/) - to validate the Python code. 
+- Accessibility:
+  - Adobe colour - [colour blindness](https://color.adobe.com/create/color-accessibility) - No conflicts found.<br>
+  ![adobe colour - full swatch check](documentation/full-swatch-adobe-sim.PNG)
+  - [Pilestone - Color Blind Vision Simulator](https://pilestone.com/pages/color-blindness-simulator-1) - visual check, seems distinguishable still<br>
+  - [simulated colourblind viewing images here](documentation/simulated_colourblind/)
 
-  - Running the site through [WAVE accessibility tool](https://wave.webaim.org/report#/https://dasic002.github.io/GameOfKings/index.html) showed no obvious errors after some improvements were made.<br>
-  ![Wave accessibility evaluation results](documentation/Test-wave-accessibility.PNG) -->
 
 ### Manual Testing
 
