@@ -111,9 +111,9 @@ The display will include:
 ![New game displayed](documentation/feat_game_display.PNG)
   
 #### Player Prompt
-The game prompts the player to take a guess, provided it passes the validation checks, the game checks the input guess against the randomly selected word for this session. Every time the guess is incorrect the prompt changes to "Oops! that guess is wrong, please try again!".
+The game prompts the player to take a guess, provided it passes the validation checks, the game checks the input guess against the randomly selected word for this session. Every time the guess is incorrect the prompt changes to "Oops! That guess is wrong. You have {number} of guess(es) left.".
 
-![Prompt after incorrect guess]()
+![Prompt after incorrect guess](documentation/feat_prompt-after-wrong-attempt.PNG)
 
 #### Invalid guess inputs display
 To reduce frustrations over incorrect guesses we have put in place some input validations, as well as adding a `strip()` method to the guess input so should the user enter a whitespace before or after typing their word, it will not trigger the validation checks for a seemingly valid guess.
@@ -172,14 +172,51 @@ Should the player need to be reminded of the rules, the player can enter "help!"
 ![Rules display](documentation/feat_rules.PNG)
 
 ### Features Left to Implement
-<!-- 
-Wordle includes the whole keyboard in the display, highlighting which letters have not been used, which are non existing, existing or correctly placed, this helps the player visualise which letters they could use like a checklist of the alphabet and it becomes easier to try sounding out words for the next guess. We have not recreated this feature, but we could potentially use the empty space to the right of the guesses to print out the alphabet and highlighting what letters are still available to use.
+These features were not implemented just so I did not get distracted with a feature creep and not deliver on my MVP.
 
-Wordle includes __Hard Mode__ which tracks letters the player has guessed that exist in the selected word and should the player not use them in the next guess they attempt, wordle will not accept the entry. Should the letter be in the correct place, wordle will only accept words with the correctly guessed letters in the same places. For example, should the selected word be LIVER and the first guess be PLATE, then L and E are indicated as exiting but being in the wrong place, the second guess would need to include both L and E, so it could not be something like NERVE or LOUSY, but could be LIKED or LOVER. Should the second guess in fact be LIKED, the letters L, I and E will be indicated as correctly guessed and need to be used in the same places for the following guess, something looking like L I _ E _, which could be LIFER, LIMEN, LINEN, LINER, LIVED, LIVER just to name a few. The aim of this feature is to avoid the player trying completely different words in order to find other missing letters without the constraints of considering the words that the could work with the clues given. For instance, without __Hard Mode__ the player's second guess could be VIRUS, it doesn't include L and E that would be highlighted from PLATE, but does include V, I and R. From those 2 guesses, the player should be able to deduce that the selected word is LIVER on the third guess. If we were to implement this feature we could store the list output from the evaluation of previous guesses to evaluate whether use in a validation looking for the previously correct guessed letter placement matching that in the new guess. For letters existing in the selected word, the function evaluating guesses can output a dictionary of these letters, and the input validation check that these letters are used in the latest input before it proceeds to evaluating for the game. 
+#### __Alphabet checklist__
+The official Wordle game includes the whole keyboard in the display, highlighting which letters have not been used, which are non existing in the word of the day and existing or correctly placed. This helps the player visualise which letters they could use on their next guess much like a checklist of the alphabet. It becomes easier to try sounding out words for the next guess without using the letters the game has rules out. 
 
-Feedback messages
+__How might we create this?__
+We have not recreated this feature, but we could potentially use the empty space to the right of the guesses to print out the alphabet and highlighting what letters are still available to use. This would probably be done as dictionary variable, where the alphabet forms the keys and the values are the same as used for listing out the clues in a guess ('-' for unused/unchecked, 'X' for not in word of the day, 'O' for exist in Word of the day, 'C' is in the correct place of the word of the day).
 
-logging back to a player's game -->
+
+#### __Hard Mode gameplay__
+Wordle includes __Hard Mode__ which tracks letters the player has guessed that exist in the selected word and should the player not use them in the next guess they attempt, wordle will not accept the entry. Should the letter be in the correct place, wordle will only accept words with the correctly guessed letters in the same places. 
+
+For example, should the word of the day be __LIVER__ and:
+1) the first guess be __PLATE__, then __L__ and __E__ are indicated as exiting but being in the wrong place, the second guess would need to include both __L__ and __E__, so it could __not__ be something like _NERVE_ or _LOUSY_, but could be _LIKED_ or _LOVER_.
+2) Should the second guess in fact be __LIKED__, the letters __L__, __I__ and __E__ will be indicated as correctly guessed and need to be used in the same places for the following guess, something looking like __L I _ E _.__, which could be LIFER, LIMEN, LINEN, LINER, LIVED, LIVER just to name a few. 
+
+The aim of this feature is to avoid the player trying completely different words in order to find other missing letters without the constraints of considering the words that the word of the day could be with the clues given. For instance, without __Hard Mode__ the player's second guess could be __VIRUS__ (after 1st as __PLATE__), it doesn't include __L__ and __E__ that would have been highlighted from _PLATE_, but does include __V__, __I__ and __R__. 
+
+From those 2 guesses, the player should be able to deduce that the word of the day is __LIVER__ on the third guess. 
+
+__How might we create this?__
+If we were to implement this feature we could store the list output from the evaluation of previous guesses to use in a validation of input and comparing the previously correct guessed letter placement matching that in the new guess. 
+For letters existing in the selected word, the function evaluating guesses can output a dictionary of these letters, and the input validation checks that these letters are used in the latest input before it proceeds to evaluating for the game. 
+
+
+#### __Feedback messages__
+Wordle has a feedback word for correctly guessing the word of the day at each attempt. Specifically, the following messages display guessing correctly at:
+1) first attempt - __Genius__
+2) second attempt - __Magnificent__
+3) third attempt - __Impressive__
+4) fourth attempt - __Splendid__
+5) fifth attempt - __Great__
+6) sixth attempt - __Phew__
+
+__How might we create this?__
+This messages could have been a constant variable as a list and upon winning the round, the message is composed calling the list item by index. The index would be calculated with the length of the list of guesses made minus 1.
+
+
+#### __Returning players login__
+Playing the official Wordle game the game recognises the devices, so as the player returns day after day it is able to track the player's stats. For extended features, players can register an account with New York Times to access other games too. The benefit is that a returning player can keep building on their winning streak to overcome their own highscore (longest streak) without having to play more rounds in one single session of accessing the game.
+
+__How might we create this?__
+The most feasible way I can think of is to either:
+- provide new players their timestamp based ID after entering their name so that next time they access the game, if it is entered in the name prompt of the welcome page, the game can recognise the input is all numeric and 12 digits long, which makes the game lookup the number as an ID, if it existts in our worksheet it will pull the data into the game and allow the next round, if won to increment the current winning streak as if the player had not closed the previous game.
+- or that when new players enter their name on the welcome page prompt, the game asks the player to provide a unique username and password, with the game confirming that the username is valid and available in the worksheet. Next time the player returns, when prompted for a name, the player can enter their username, the game looks up the usernames in the worksheet and prompts for a password, before it resumes the game with the same stats. 
 
 
 ## Technologies
