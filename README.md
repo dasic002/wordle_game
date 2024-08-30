@@ -14,6 +14,25 @@ If the player misses a day or fails to guess the word, the winning streak is bro
 
 ![Responsive design mock-up](documentation/responsive-design.PNG)
 
+***
+
+## Table of contents
+* [UX User Experience](#ux---user-experience)
+  * [User stories](#user-stories)
+  * [Flowchart](#flowchart)
+  * [Strategy](#strategy)
+  * [Scope](#scope)
+  * [Surface](#surface)
+* [Features](#features)
+* [Technologies](#technologies)
+* [Testing](#testing)
+* [Deployment](#deployment)
+* [Credits](#credits)
+
+
+
+***
+
 
 ## UX - User Experience
 
@@ -222,6 +241,8 @@ The most feasible way I can think of is to either:
 ## Technologies
 - Languages used:
   - [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
+- [Google Cloud APIs](https://console.cloud.google.com/) - to read and write data to a google sheets worksheet.
+- [Google sheets](https://docs.google.com/spreadsheets/create) - to create our worksheet for our database.
 - [Draw.io](https://app.diagrams.net/#) - a free web-based diagram drawing tool.
 - [GitPod](https://www.gitpod.io/) - Cloud-based IDE to edit code and Git version control.
 - [GitHub](https://github.com/) - to store and publish the project.
@@ -240,8 +261,7 @@ The most feasible way I can think of is to either:
 - Accessibility:
   - Adobe colour - [colour blindness](https://color.adobe.com/create/color-accessibility) - No conflicts found.<br>
   ![adobe colour - full swatch check](documentation/full-swatch-adobe-sim.PNG)
-  - [Pilestone - Color Blind Vision Simulator](https://pilestone.com/pages/color-blindness-simulator-1) - visual check, seems distinguishable still<br>
-  - [simulated colourblind viewing images here](documentation/simulated_colourblind/)
+  - [Pilestone - Color Blind Vision Simulator](https://pilestone.com/pages/color-blindness-simulator-1) - visual check, seems distinguishable still - [simulated colour blind viewing images here](documentation/simulated_colourblind/)
 
 
 ### Manual Testing
@@ -292,8 +312,77 @@ Heroku allows for colours in its app, but these are restricted to 3-bit and 4-bi
 This character appeared on words that should have ended with an accented e (é), like __sauté__. For ease of playing the game this character has been replaced with a plain "e".
 
 
-## Deployment as a Heroku app
+## Deployment
+### Source and format the word bank (dictionary)
+To provide the game with a database of 5 letter words in US English, the search online provided a few results. [GWICKS dictionaries](http://www.gwicks.net/dictionaries.htm) was one of 2 that provide the list in a editable file format, i.e.: text or CSV or other easily editable in excel or google sheets.
 
+Chose GWICKS only because it had the longest list of 5-letter words.
+
+__Process to filter and compile list for the game__
+  1) Download "USA ENGLISH - 77,000 words" text file and open with notepad.
+  1) Copy the whole list and paste into Microsoft Excel, leaving at least a row above to add a header of "Words".
+  1) Select the entire list of cells, from the header to the last word. The easiest way to do this is to select the header and hold CTRL+SHFT+ARROW_DOWN.
+  1) Whilst the cells are selected, press CTRL+T to create a table, in the dialog box, tick "My table has headers" and press "OK".
+  1) With the table created, the values can be filtered, expand the drowndown menu on the header, expand "Text Filters" and select "Equals...".
+  1) In the dialog box that opens, enter into field to the right of "equals", 5 question marks `?????`. This will filter all words that have precisely 5 letters.
+  1) Using the same keyboard shortcut earlier, select the first word listed in the table (not the header), CTRL+SHFT+ARROW_DOWN to select the whole list, there should be 5000+ words.
+  1) Copy (CTRL+C) and paste (CTRL+V) into a new text file and save the file ready to upload to the repository.
+
+  Once the file is uploaded, it is available to open, read and close by out Python code. Our dictionary file can be found [here](en-us-dict.txt).
+
+
+### Create and connect player data database
+The game stores and accesses game sessions data to update the current session and offer comparison for other sessions on how well the current player is doing. As seen [here](#scores).
+
+__Create the worksheet__
+  1) Navigate to Google.com and login to or signup for your Google account.
+  2) Then click on the grid icon button on the top right corner of the browser to reveal other google apps, scroll down and click on sheets.
+  3) Create a new spreadsheet and give it a meaningful title i.e.: "Wordle-game".
+  4) A single sheet for this game will do, rename it "scores".
+  5) Add the meaningful headings on the first row. In this project they were ( User_ID / Player_name / Current_streak / Longest_Streak / 1 / 2 / 3 / 4 / 5 / 6 / average_num ).
+
+__Setup API__
+  1) Navigate to [Google Cloud Platform](https://cloud.google.com/) and login with your google account used for your worksheet above.
+  1) Click on "Console" on the top right corner.
+  1) Here you will see a dropdown list along the top of the page named "Select a project", click it and in the new dialogue page, click "NEW PROJECT".
+  1) Give it a unique project name and proceed. It may take a moment whilst google creates the project.
+  1) Once created, navigate back to the top of the page to "Select a project", click it and select the project name to open it.
+  1) Next we need to add the APIs we will use. Expand the menu on the top left corner and click on "APIs and Services".
+  1) At the top of the page, click " + ENABLE APIS AND SERVICES " and on the next page, search for "Google drive API", select it and click "ENABLE". 
+  1) Click on "APIs and services" again, and click on " + ENABLE APIS AND SERVICES " again, on the next page search for "Google sheets API", click it it to open and click "Enable".
+  1) On the next page, click on "Create credentials".
+     * Step 1: Credential Type, select "Application data" and click next.
+     * Step 2: Service account details, enter a name and click "Create and continue", then select the role of "owner" and click continue.
+     * Step 3: we can skip this step and click "Done".
+  1) Click "Credentials", on the list on the left and select the account you have created under "Service Accounts". On the next page, click "KEYS" at the top of the page and then click "ADD KEY" and select "Create new key".
+  1) Select "JSON" and click create. This will generate and automatically download a .json file. 
+  1) Upload the file to your github project, __but__ before pushing to the repository, add the file name "creds.json" as a line in the ".gitignore" file so this piece of sensitive data is not exposed to the public.
+  1) Rename this file to "creds.json", open it and copy the "client email". 
+  1) Navigate back to the Google Sheets worksheet created, click the "Share" button on the top right corner, paste the email address copied from the JSON file, select the role of editor in the dropdown list, disable "Notify people" checkbox and click "Share".
+
+__Enable API from the IDE (GitPod or other)__  
+  1) In your IDE of choice, enter in the terminal "pip install gspread googl-auth".
+  1) You can now import this library to your code, at the top of the Python file add:
+    ```
+    import gspread
+    from google.oauth2.service_account import Credentials
+    ```
+  1) Next add the constants (below are specific to our game):
+    ```
+    SCOPE = [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive.file",
+        "https://www.googleapis.com/auth/drive"
+        ]
+
+    CREDS = Credentials.from_service_account_file('creds.json')
+    SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+    GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+    SHEET = GSPREAD_CLIENT.open('Wordle-game')
+    ```
+
+
+### To the Heroku app
 1) Login to Heroku.
 2) Once on the dashboard, click _"New"_ and select _"Create new app"_ from dropdown list.
 3) Select the applicable region for your app. In our case, it's _Europe_.
@@ -315,14 +404,9 @@ To view the deployed app, scroll to the top and click "Open app".
 
 The deployed app can be found [here.](https://wordle-dasic002-367fb61feaeb.herokuapp.com/)
 
-### Constraints
+#### Constraints
 
 The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
-
-
-<!-- ### Branching -->
-
-<!-- This current branch, is the main branch being submitted for grading, it only differs from the pre-submission-archive branch in that it holds no debug code in the JavaScript file. -->
 
 
 ## Credits 
@@ -330,6 +414,7 @@ The deployment terminal is set to 80 columns by 24 rows. That means that each li
 ### Media
 - [Am I Responsive](https://ui.dev/amiresponsive) - to visualise the website in various display sizes as the preview used in this readme file.
 - [Pilestone - Color Blind Vision Simulator](https://pilestone.com/pages/color-blindness-simulator-1) - used to generate the view of colour-blind conditions of the CLI based game.
+- [Dictionary source](http://www.gwicks.net/dictionaries.htm) - the link from which the chosen dictionary was downloaded.
 
 ### Code
 
